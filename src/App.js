@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 //import 'react-toastify/dist/ReactToastify.css';
-
+import Dashboard from "./pages/dashboard/Dashboard.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import Preloader from "./components/Preloader.jsx";
@@ -41,6 +41,8 @@ function App() {
             <Route path="/country" element={<Country />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />

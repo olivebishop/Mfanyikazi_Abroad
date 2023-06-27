@@ -15,7 +15,7 @@ const HeroSection = () => {
           </p>
           <Link
             to="/signup"
-            className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-green-600 hover:bg-slate-500 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+            className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-green-500 hover:bg-slate-500 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
           >
             Get started
             <svg className="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -24,7 +24,7 @@ const HeroSection = () => {
           </Link>
           <Link
             to="/country"
-            className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-green-600 hover:bg-slate-500 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+            className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-green-500 hover:bg-slate-500 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
           >
              Countries Joined
             <svg className="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
