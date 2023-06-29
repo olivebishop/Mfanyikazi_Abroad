@@ -66,7 +66,7 @@ const Country = () => {
             <p className="text-sm">{country.info}</p>
             <Link
               to="/signup"
-              className="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 rounded mt-4 block text-center"
+              className="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 rounded mt-4 block text-center no-underline"
             >
               View Jobs
             </Link>

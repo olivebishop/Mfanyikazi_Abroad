@@ -48,7 +48,7 @@ function Footer() {
         </div>
         <div className="flex flex-col items-center justify-center border-t border-blue-gray-50 py-4 md:flex-row md:justify-between">
           <p className="text-white text-center font-normal mb-4 md:mb-0">
-            &copy; {currentYear} <a href="#">Mfanyikazi Abroad</a>. All Rights Reserved.
+            &copy; {currentYear} <a href="#" className="no-underline">Mfanyikazi Abroad</a>. All Rights Reserved.
           </p>
           <div className="flex space-x-4">
     <a href="#" className="text-white">
@@ -62,6 +62,9 @@ function Footer() {
     </a>
   </div>
         </div>
+        <p className="text-white text-center mt-4">
+  <a href="https://olivebishop.vercel.app/" className="no-underline">Designed by Olive&#129417;</a>
+  </p>
       </div>
     </footer>
   );

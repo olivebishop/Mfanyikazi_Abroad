@@ -99,7 +99,7 @@ const SignUpForm = () => {
               </button>
             </form>
             <div className="flex justify-between mt-4">
-              <a href="/login" className="text-green-600">Have an account? Log in</a>
+              <a href="/login" className="text-green-600 no-underline">Have an account? Log in</a>
             </div>
           </div>
         </div>

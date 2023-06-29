@@ -19,7 +19,7 @@ const PricingSection = () => {
                 <li>👉Secure communication channel.</li>
                 <li>👉Access to support.</li>
               </ul>
-              <Link to="/signup" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
+              <Link to="/signup" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full no-underline">
                 Get Started
               </Link>
             </div>
@@ -36,7 +36,7 @@ const PricingSection = () => {
                 <li>👉Enhanced customer service.</li>
                 <li>👉Courses</li>
               </ul>
-              <Link to="/signup" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
+              <Link to="/signup" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full no-underline">
                 Get Started
               </Link>
             </div>

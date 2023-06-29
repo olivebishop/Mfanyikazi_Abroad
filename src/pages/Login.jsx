@@ -58,8 +58,8 @@ const LoginForm = () => {
               </button>
             </form>
             <div className="flex justify-between mt-4">
-              <a href="/signup" className="text-green-600">Don't have an account? Sign up</a>
-              <a href="/forgot-password" className="text-green-600">Forgot Password?</a>
+              <a href="/signup" className="text-green-600 no-underline">Don't have an account? Sign up</a>
+              <a href="/forgot-password" className="text-green-600 no-underline">Forgot Password?</a>
             </div>
           </div>
         </div>
