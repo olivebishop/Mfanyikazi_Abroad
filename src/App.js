@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 //import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from "./pages/dashboard/Dashboard.jsx";
 import Navbar from "./components/Navbar.jsx";
