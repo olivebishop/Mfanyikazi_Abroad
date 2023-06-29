@@ -5,19 +5,19 @@ import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg
 const SITEMAP = [
   {
     title: "Company",
-    links: ["About Us", "Careers", "Our Team", "Projects"],
+    links: ["About ", "FAQ", " Services", "Sign Up"],
   },
   {
     title: "Help Center",
-    links: ["Discord", "Twitter", "GitHub", "Contact Us"],
+    links: ["Facebook", "Instagram", "Twitter", "Contact Us"],
   },
   {
     title: "Resources",
-    links: ["Blog", "Newsletter", "Free Products", "Affiliate Program"],
+    links: ["Partnerships", "Newsletter", "Statistics", "Subscription & Plan"],
   },
   {
-    title: "Products",
-    links: ["Templates", "UI Kits", "Icons", "Mockups"],
+    title: "Countries",
+    links: ["UAE", "Isarel", "Lebanon", "Saudi Arabia"],
   },
 ];
 

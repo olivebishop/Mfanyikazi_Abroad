@@ -1,0 +1,27 @@
+@keyframes beep {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  .beeping-button {
+    animation: beep 1s infinite;
+    background-color: #38a169; /* Change the button background color */
+    color: white;
+    font-weight: bold;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .beeping-button:hover {
+    background-color: #48bb78; /* Change the button hover background color */
+  }
+  

@@ -1,26 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import hero from "../assets/hero.jpg";
+import israel from "../assets/israel.jpg";
+import uae from "../assets/uae.jpg"
 
 const Country = () => {
   const countries = [
     {
       name: "Saudi Arabia",
       image: hero,
-      info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada consectetur velit, a consectetur metus commodo eu.",
+      info: "Saudi Arabia presents numerous job opportunities in sectors like oil, construction, healthcare, finance, education, tourism, technology,  inviting professionals from around the world.",
     },
     {
       name: "UAE",
-      image: hero,
-      info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada consectetur velit, a consectetur metus commodo eu.",
+      image: uae,
+      info: "UAE provides abundant job prospects in various sectors including finance, tourism, construction, healthcare, technology, and more, attracting global talent.",
     },
     {
       name: "Israel",
-      image: hero,
-      info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada consectetur velit, a consectetur metus commodo eu.",
+      image: israel,
+      info: "Israel offers diverse job prospects in sectors including technology, innovation, research, defense, agriculture, tourism, and healthcare, attracting global talent.",
     },
     {
-      name: "Lebanon",
+      name: "Jordan",
       image: null,
       info: "Coming Soon",
     },
@@ -30,7 +32,7 @@ const Country = () => {
       info: "Coming Soon",
     },
     {
-      name: "Lebanon",
+      name: "Iran",
       image: null,
       info: "Coming Soon",
     },
