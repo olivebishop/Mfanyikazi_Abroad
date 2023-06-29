@@ -9,27 +9,27 @@ const StatisticsSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="text-center p-4">
             <h3 className="text-2xl font-bold mb-2">
-              <CountUp end={10000} duration={3} separator="," />
+              <CountUp end={10000} duration={30} separator="," />
             </h3>
             <p className="text-gray-600">Targeted Users</p>
           </div>
           <div className="text-center p-4">
             <h3 className="text-2xl font-bold mb-2">
-              <CountUp end={4} duration={3} separator="," />
+              <CountUp end={4} duration={30} separator="," />
             </h3>
             <p className="text-gray-600">Partners</p>
           </div>
           <div className="text-center p-4">
             <h3 className="text-2xl font-bold mb-2">
-              <CountUp end={500000} duration={3} separator="," />
+              <CountUp end={500000} duration={30} separator="," />
             </h3>
             <p className="text-gray-600">Targeted Job Postings</p>
           </div>
           <div className="text-center p-4">
             <h3 className="text-2xl font-bold mb-2">
-              <CountUp end={95} duration={3} suffix="%" />
+              <CountUp end={95} duration={30} suffix="%" />
             </h3>
-            <p className="text-gray-600">User Satisfaction</p>
+            <p className="text-gray-600">Users Satisfaction</p>
           </div>
         </div>
       </div>
