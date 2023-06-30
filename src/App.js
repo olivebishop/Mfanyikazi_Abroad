@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-//import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from "./pages/dashboard/Dashboard.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
@@ -16,6 +17,7 @@ import Services from "./pages/Services";
 import Signup from "./pages/Signup.jsx";
 import Login from "./pages/Login.jsx";
 import Country from "./pages/Country.jsx";
+
 function App() {
   const [loading, setLoading] = useState(true);
 
@@ -47,6 +49,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
+          <ToastContainer />
         </BrowserRouter>
       )}
     </div>
