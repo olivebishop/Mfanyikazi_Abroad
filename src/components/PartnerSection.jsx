@@ -8,7 +8,7 @@ const PartnersSection = () => {
   return (
     <section className="partners-section bg-gray-100 py-10">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-8">Our Partners</h2>
+        <h2 className="text-3xl font-bold text-center mb-8">Targeted Partners</h2>
         <div className="flex flex-wrap justify-center items-center">
           <div className="w-1/2 md:w-1/4 text-center p-4">
             <img src={cotu} alt="COTU" className="mx-auto h-16 mb-4" />

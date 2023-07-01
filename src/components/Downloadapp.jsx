@@ -12,7 +12,7 @@ const DownloadApp = () => {
           </div>
           <div className="md:w-1/2 md:pl-8">
             <div className="text-slate-500 flex flex-col h-full justify-center">
-              <h2 className="text-3xl font-bold mb-4 text-center">Our App is Now Available</h2>
+              <h2 className="text-3xl font-bold mb-4 text-center">Our App is Coming Soon...</h2>
               <p className="text-2xl font-bold mb-4 text-center">Stay connected on the go with our mobile app.</p>
               <div className="flex justify-center">
                 <a href="#" className="beeping-button no-underline">

@@ -20,12 +20,28 @@ import Country from "./pages/Country.jsx";
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [authToken, setAuthToken] = useState(false);
+  const [showFooter, setShowFooter] = useState(false);
+
+
 
   useEffect(() => {
-    // Simulate an API call or any asynchronous operation
+    //auth
+    const token = localStorage.getItem('authToken');
+    setAuthToken(token);
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    //footer
+    setShowFooter(!isLoggedIn);
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    // preloader
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 3000);
   }, []);
 
   return (
@@ -34,7 +50,7 @@ function App() {
         <Preloader />
       ) : (
         <BrowserRouter>
-          <Navbar />
+         {!authToken && <Navbar />}
           <br />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -44,11 +60,11 @@ function App() {
             <Route path="/country" element={<Country />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-
+            <Route path="/dashboard" element={<Dashboard loginStatus={{isLoggedIn, setIsLoggedIn}}/>} />
+        
             <Route path="*" element={<NotFound />} />
           </Routes>
-          <Footer />
+          {showFooter && <Footer />}
           <ToastContainer />
         </BrowserRouter>
       )}

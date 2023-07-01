@@ -1,23 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+function LoginForm(props) {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Perform login logic here
-    console.log('Login form submitted');
-    console.log({
-      email,
-      password,
-    });
+    try {
+      const response = await axios.post("http://localhost:9000/api/v1/login", {
+        email: email, password: password
+      });
+      const { token } = response.data;
+      localStorage.setItem("authToken", token);
+      console.log(`The status is: ${response.status}`);
+      toast.success("Login successful");
+      navigate("/dashboard");
+    } catch (error) {
+      console.error(error);
+      toast.error("Login failed");
+    }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-black text-white">
+      <ToastContainer />
       <div className="container mx-auto max-w-md px-4 py-8 mt-4">
         <div className="bg-black rounded-lg shadow-lg overflow-hidden sm:w-1/2 mx-auto">
           <div className="p-6">
@@ -32,7 +44,7 @@ const LoginForm = () => {
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full border border-black rounded py-2 px-3 focus:outline-none focus:ring-slate-500 focus:border-slate-500"
+                  className="w-full border border-black rounded py-2 px-3 focus:outline-none focus:ring-slate-500 focus:border-slate-500 text-black"
                   required
                 />
               </div>
@@ -45,7 +57,7 @@ const LoginForm = () => {
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full border border-black rounded py-2 px-3 focus:outline-none focus:ring-slate-500 focus:border-slate-500"
+                  className="w-full border border-black rounded py-2 px-3 focus:outline-none focus:ring-slate-500 focus:border-slate-500 text-black"
                   required
                 />
               </div>
@@ -58,8 +70,15 @@ const LoginForm = () => {
               </button>
             </form>
             <div className="flex justify-between mt-4">
-              <a href="/signup" className="text-green-600 no-underline">Don't have an account? Sign up</a>
-              <a href="/forgot-password" className="text-green-600 no-underline">Forgot Password?</a>
+              <a href="/signup" className="text-green-600 no-underline">
+                Don't have an account? Sign up
+              </a>
+              <a
+                href="/forgot-password"
+                className="text-green-600 no-underline"
+              >
+                Forgot Password?
+              </a>
             </div>
           </div>
         </div>
