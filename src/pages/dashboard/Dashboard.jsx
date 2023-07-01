@@ -3,7 +3,7 @@ import DashboardHeader from "../../components/DashboardHeader";
 import DashboardFooter from "../../components/DashboardFooter";
 import Sidebar from "../../components/Sidebar";
 import Content from "./Content";
-import DashNavbar from "./DashNavbar"
+
 
 const Dashboard = () => {
   return (
@@ -12,7 +12,6 @@ const Dashboard = () => {
       <div className="flex-1 flex">
         <Sidebar />
         <div className="flex-1">
-          <DashNavbar />
           <Content />
         </div>
       </div>
