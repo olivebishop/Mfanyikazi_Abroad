@@ -23,7 +23,7 @@ function LoginForm(props) {
       navigate("/dashboard");
     } catch (error) {
       console.error(error);
-      toast.error("Login failed");
+      toast.error("username or password is incorrect!");
     }
   };
 

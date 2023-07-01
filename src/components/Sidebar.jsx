@@ -239,6 +239,14 @@ const Sidebar = () => {
               Reports
             </a>
           </li>
+          <li>
+            <a
+              href="#"
+              className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 no-underline"
+            >
+              Help & Support
+            </a>
+          </li>
         </ul>
       </nav>
     </aside>
