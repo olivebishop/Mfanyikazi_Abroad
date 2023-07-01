@@ -5,7 +5,7 @@ import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg
 const SITEMAP = [
   {
     title: "Company",
-    links: ["About ", "FAQ", " Services", "Sign Up"],
+    links: ["About", "FAQ", "Services", "Sign Up"],
   },
   {
     title: "Help Center",
@@ -17,7 +17,7 @@ const SITEMAP = [
   },
   {
     title: "Countries",
-    links: ["UAE", "Isarel", "Lebanon", "Saudi Arabia"],
+    links: ["UAE", "Israel", "Lebanon", "Saudi Arabia"],
   },
 ];
 
@@ -36,7 +36,7 @@ function Footer() {
                   <li key={key} className="text-white font-normal">
                     <a
                       href="#"
-                      className="inline-block py-1 pr-2 transition-transform hover:scale-105"
+                      className="inline-block py-1 pr-2 transition-transform hover:scale-105 no-underline"
                     >
                       {link}
                     </a>
@@ -48,23 +48,23 @@ function Footer() {
         </div>
         <div className="flex flex-col items-center justify-center border-t border-blue-gray-50 py-4 md:flex-row md:justify-between">
           <p className="text-white text-center font-normal mb-4 md:mb-0">
-            &copy; {currentYear} <a href="#" className="no-underline">Mfanyikazi Abroad</a>. All Rights Reserved.
+            &copy; {currentYear} <a href="#" className="text-white no-underline">Mfanyikazi Abroad</a>. All Rights Reserved.
           </p>
-          <div className="flex space-x-4">
-    <a href="#" className="text-white">
-      <FontAwesomeIcon icon={faFacebook} />
-    </a>
-    <a href="#" className="text-white">
-      <FontAwesomeIcon icon={faTwitter} />
-    </a>
-    <a href="#" className="text-white">
-      <FontAwesomeIcon icon={faInstagram} />
-    </a>
-  </div>
+          <div className="flex space-x-4 ">
+            <a href="#" className="text-white no-underline">
+              <FontAwesomeIcon icon={faFacebook} />
+            </a>
+            <a href="#" className="text-white no-underline">
+              <FontAwesomeIcon icon={faTwitter} />
+            </a>
+            <a href="#" className="text-white no-underline">
+              <FontAwesomeIcon icon={faInstagram} />
+            </a>
+          </div>
         </div>
         <p className="text-white text-center mt-4">
-  <a href="https://olivebishop.vercel.app/" className="no-underline">Designed by Olive&#129417;</a>
-  </p>
+          <a href="https://olivebishop.vercel.app/" className="text-white no-underline">Designed by Olive&#129417;</a>
+        </p>
       </div>
     </footer>
   );
