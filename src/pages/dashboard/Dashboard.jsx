@@ -1,11 +1,10 @@
 import React from "react";
 import DashboardHeader from "../../components/DashboardHeader";
-import DashboardFooter from "../../components/DashboardFooter";
 import Sidebar from "../../components/Sidebar";
 import Content from "./Content";
+import DashboardFooter from "../../components/DashboardFooter"; // Import the DashboardFooter component
 
-
-const Dashboard = () => {
+const Dashboard = ({ loggedIn }) => {
   return (
     <div className="flex flex-col min-h-screen">
       <DashboardHeader />
@@ -15,7 +14,7 @@ const Dashboard = () => {
           <Content />
         </div>
       </div>
-      <DashboardFooter />
+      {loggedIn && <DashboardFooter />} {/* Render the DashboardFooter for logged-in users */}
     </div>
   );
 };
