@@ -7,7 +7,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 import Dashboard from "./pages/dashboard/Dashboard.jsx";
 import Navbar from "./components/Navbar.jsx";
-import DashboardFooter from "./components/DashboardFooter.jsx";
 import Footer from "./components/Footer.jsx";
 import Preloader from "./components/Preloader.jsx";
 import Home from "./pages/Home";
@@ -23,16 +22,23 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [authToken, setAuthToken] = useState(false);
+  const [showFooter, setShowFooter] = useState(false);
+
+
 
   useEffect(() => {
-    // Check if the user is logged in
+    //auth
     const token = localStorage.getItem('authToken');
     setAuthToken(token);
-    setIsLoggedIn(!!token);
-  }, []);
+  }, [isLoggedIn]);
 
   useEffect(() => {
-    // Preloader
+    //footer
+    setShowFooter(!isLoggedIn);
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    // preloader
     setTimeout(() => {
       setLoading(false);
     }, 3000);
@@ -44,7 +50,7 @@ function App() {
         <Preloader />
       ) : (
         <BrowserRouter>
-          {!authToken && <Navbar />}
+         {!authToken && <Navbar />}
           <br />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -54,16 +60,12 @@ function App() {
             <Route path="/country" element={<Country />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
-
-            <Route
-              path="/dashboard"
-              element={<Dashboard loggedIn={isLoggedIn} />} // Pass loggedIn prop
-            />
+           
+            <Route path="/dashboard" element={<Dashboard showFooter={showFooter} />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
-          {isLoggedIn && <DashboardFooter />} {/* Render DashboardFooter for logged-in users */}
-          {!isLoggedIn && !authToken && <Footer />} {/* Render Footer for non-logged-in users */}
+          {showFooter && <Footer />}
           <ToastContainer />
         </BrowserRouter>
       )}
