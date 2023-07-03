@@ -74,7 +74,7 @@ function LoginForm(props) {
                 Don't have an account? Sign up
               </a>
               <a
-                href="/forgot-password"
+                href="/forgotpass"
                 className="text-green-600 no-underline"
               >
                 Forgot Password?

@@ -17,6 +17,7 @@ import Services from "./pages/Services";
 import Signup from "./pages/Signup.jsx";
 import Login from "./pages/Login.jsx";
 import Country from "./pages/Country.jsx";
+import ForgotPass from "./components/ForgotPass.jsx"
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -60,6 +61,8 @@ function App() {
             <Route path="/country" element={<Country />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
+            
+            <Route path="/forgotpass" element={<ForgotPass />} />
            
             <Route path="/dashboard" element={<Dashboard showFooter={showFooter} />} />
 
