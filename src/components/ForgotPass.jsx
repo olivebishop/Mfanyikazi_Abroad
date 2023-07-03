@@ -21,7 +21,7 @@ const ForgetPass = () => {
           <div className="flex justify-between">
             <button
               type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-green-500 transition-colors duration-300"
+              className="bg-slate-500 text-white px-4 py-2 rounded-md hover:bg-green-500 transition-colors duration-300"
             >
               Submit
             </button>
