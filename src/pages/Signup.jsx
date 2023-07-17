@@ -24,7 +24,7 @@ const SignUpForm = () => {
     try {
       const user = { username, email, password };
       const response = await axios.post(
-        "http://localhost:9000/api/v1/signup",
+        "https://good-lime-walrus-kilt.cyclic.app/api/v1/signup",
         user
       );
       console.log("Sign-up form submitted");
