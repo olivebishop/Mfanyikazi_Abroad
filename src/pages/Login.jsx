@@ -13,7 +13,7 @@ function LoginForm(props) {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:9000/api/v1/login", {
+      const response = await axios.post("https://good-lime-walrus-kilt.cyclic.app/api/v1/login", {
         email: email, password: password
       });
       const { token } = response.data;
