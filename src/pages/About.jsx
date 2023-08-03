@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import hero from "../assets/hero.jpg";
-
+//import Footer from "../components/Footer";
 const AboutUs = () => {
   const faqData = [
     {
@@ -70,8 +70,10 @@ const AboutUs = () => {
           ))}
         </div>
       </div>
+   
     </div>
   );
 };
+
 
 export default AboutUs;

@@ -7,36 +7,32 @@ import "react-toastify/dist/ReactToastify.css";
 
 import Dashboard from "./pages/dashboard/Dashboard.jsx";
 import Navbar from "./components/Navbar.jsx";
-import Footer from "./components/Footer.jsx";
 import Preloader from "./components/Preloader.jsx";
 import Home from "./pages/Home";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
+import AboutUs from "../src/./pages/./AboutUs";
+import ContactPage from "./pages/ContactPage";
 import NotFound from "./pages/NotFound";
-import Services from "./pages/Services";
-import Signup from "./pages/Signup.jsx";
-import Login from "./pages/Login.jsx";
-import Country from "./pages/Country.jsx";
-import ForgotPass from "./components/ForgotPass.jsx"
-
+import ServicesPage from "./pages/ServicesPage";
+import SignupPage from "./pages/SignupPage";
+import LoginPage from "./pages/LoginPage";
+import CountryPage from "./pages/CountryPage";
+import ForgotPass from "./components/ForgotPass.jsx";
+import ResetPass from "./components/ResetPass.jsx";
+import AgencyDashboard from "./pages/dashboard/AgencyDashboard.jsx";
+import EmployeeDashboard from "./pages/dashboard/EmployeeDashboard.jsx";
+import EmployerDashboard from "./pages/dashboard/EmployerDashboard.jsx";
+import UsersPage from "./pages/dashboard/Protected-routes/UsersPage";
+import CreateUser from "./pages/dashboard/Protected-routes/CreateUser";
+import ViewUser from "./pages/dashboard/Protected-routes/ViewUser";
 function App() {
   const [loading, setLoading] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [authToken, setAuthToken] = useState(false);
-  const [showFooter, setShowFooter] = useState(false);
-
-
 
   useEffect(() => {
     //auth
     const token = localStorage.getItem('authToken');
     setAuthToken(token);
-  }, [isLoggedIn]);
-
-  useEffect(() => {
-    //footer
-    setShowFooter(!isLoggedIn);
-  }, [isLoggedIn]);
+  }, []); // Run once on component mount, not dependent on isLoggedIn
 
   useEffect(() => {
     // preloader
@@ -51,24 +47,27 @@ function App() {
         <Preloader />
       ) : (
         <BrowserRouter>
-         {!authToken && <Navbar />}
+          {!authToken && <Navbar />}
           <br />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/country" element={<Country />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-            
-            <Route path="/forgotpass" element={<ForgotPass />} />
-           
-            <Route path="/dashboard" element={<Dashboard showFooter={showFooter} />} />
-
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/country" element={<CountryPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/forgot-password" element={<ForgotPass />} />
+            <Route path="/reset-password" element={<ResetPass />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/agency-dashboard" element={<AgencyDashboard />} />
+            <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+            <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+            <Route path="/user" element={<UsersPage />} />
+            <Route path="/create-users" element={<CreateUser />} />
+            <Route path="/view-users" element={<ViewUser />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          {showFooter && <Footer />}
           <ToastContainer />
         </BrowserRouter>
       )}

@@ -17,7 +17,7 @@ const PricingSection = () => {
                 communication channel & access to support
               </p>
               <p className="text-3xl font-bold mb-4 text-zinc-950">
-                Ksh1500/year
+                Ksh 0.00/year
               </p>
               <ul className="text-sm mb-4 text-black">
                 <li>👉 Real-time safety monitoring.</li>
@@ -40,7 +40,7 @@ const PricingSection = () => {
                 enhanced customer service
               </p>
               <p className="text-3xl font-bold mb-4 text-zinc-950">
-                Ksh3000/year
+                Ksh 3000/year
               </p>
               <ul className="text-sm mb-4 text-black">
                 <li>👉 Cultural awareness training.</li>

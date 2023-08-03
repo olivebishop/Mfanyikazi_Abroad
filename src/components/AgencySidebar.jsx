@@ -47,17 +47,10 @@ const Sidebar = () => {
             {/* Users Sub-Menu */}
             {showUsersMenu && (
               <ul className="ml-4">
+                
                 <li>
                   <a
-                    href="/create-users"
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 no-underline"
-                  >
-                    Add User
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/view-users"
+                    href="#"
                     className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 no-underline"
                   >
                   View Users
@@ -67,38 +60,7 @@ const Sidebar = () => {
               </ul>
             )}
           </li>
-          {/* Roles */}
-          <li>
-            <a
-              href="#"
-              className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 no-underline"
-              onClick={toggleRolesMenu}
-            >
-             Manage Roles
-            </a>
-            {/* Roles Sub-Menu */}
-            {showRolesMenu && (
-              <ul className="ml-4">
-                <li>
-                  <a
-                    href="#"
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 no-underline"
-                  >
-                    Add Role
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 no-underline"
-                  >
-                    View Role
-                  </a>
-                </li>
-                
-              </ul>
-            )}
-          </li>
+         
           {/* Jobs */}
           <li>
             <a
@@ -131,70 +93,8 @@ const Sidebar = () => {
               </ul>
             )}
           </li>
-          {/* Courses */}
-          <li>
-            <a
-              href="#"
-              className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 no-underline"
-              onClick={toggleCoursesMenu}
-            >
-              Manage Courses
-            </a>
-            {/* Courses Sub-Menu */}
-            {showCoursesMenu && (
-              <ul className="ml-4">
-                <li>
-                  <a
-                    href="#"
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 no-underline"
-                  >
-                    Add Courses
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 no-underline"
-                  >
-                    View Courses
-                  </a>
-                </li>
-                
-              </ul>
-            )}
-          </li>
-          {/* Countries */}
-          <li>
-            <a
-              href="#"
-              className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 no-underline"
-              onClick={toggleCountriesMenu}
-            >
-             Manage Countries
-            </a>
-            {/* Countries Sub-Menu */}
-            {showCountriesMenu && (
-              <ul className="ml-4">
-                <li>
-                  <a
-                    href="#"
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 no-underline"
-                  >
-                    Add Country
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 no-underline"
-                  >
-                    View Country
-                  </a>
-                </li>
-                
-              </ul>
-            )}
-          </li>
+         
+         
           {/* Reports */}
           <li>
             <a

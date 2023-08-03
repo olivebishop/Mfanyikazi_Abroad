@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import hero from "../assets/hero.jpg";
+import signup from "../assets/signup.svg";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ const SignUpForm = () => {
         <div className="bg-black rounded-lg shadow-lg overflow-hidden sm:flex sm:items-center">
           <div className="sm:w-1/2">
             <img
-              src={hero}
+              src={signup}
               alt="Hero"
               className="object-cover w-full h-full mt-4"
             />

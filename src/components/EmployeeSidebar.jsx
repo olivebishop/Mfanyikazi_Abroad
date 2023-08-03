@@ -36,69 +36,7 @@ const Sidebar = () => {
       <nav className="p-4">
         <ul className="space-y-2">
           {/* Sidebar Navigation Links */}
-          <li>
-            <a
-              href="#"
-              className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 no-underline"
-              onClick={toggleUsersMenu}
-            >
-             Manage Users
-            </a>
-            {/* Users Sub-Menu */}
-            {showUsersMenu && (
-              <ul className="ml-4">
-                <li>
-                  <a
-                    href="/create-users"
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 no-underline"
-                  >
-                    Add User
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/view-users"
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 no-underline"
-                  >
-                  View Users
-                  </a>
-                </li>
-                
-              </ul>
-            )}
-          </li>
-          {/* Roles */}
-          <li>
-            <a
-              href="#"
-              className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 no-underline"
-              onClick={toggleRolesMenu}
-            >
-             Manage Roles
-            </a>
-            {/* Roles Sub-Menu */}
-            {showRolesMenu && (
-              <ul className="ml-4">
-                <li>
-                  <a
-                    href="#"
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 no-underline"
-                  >
-                    Add Role
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 no-underline"
-                  >
-                    View Role
-                  </a>
-                </li>
-                
-              </ul>
-            )}
-          </li>
+         
           {/* Jobs */}
           <li>
             <a
@@ -111,14 +49,7 @@ const Sidebar = () => {
             {/* Jobs Sub-Menu */}
             {showJobsMenu && (
               <ul className="ml-4">
-                <li>
-                  <a
-                    href="#"
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 no-underline"
-                  >
-                    Add Jobs
-                  </a>
-                </li>
+                
                 <li>
                   <a
                     href="#"
@@ -148,7 +79,7 @@ const Sidebar = () => {
                     href="#"
                     className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 no-underline"
                   >
-                    Add Courses
+                    Apply Courses
                   </a>
                 </li>
                 <li>
@@ -175,14 +106,7 @@ const Sidebar = () => {
             {/* Countries Sub-Menu */}
             {showCountriesMenu && (
               <ul className="ml-4">
-                <li>
-                  <a
-                    href="#"
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 no-underline"
-                  >
-                    Add Country
-                  </a>
-                </li>
+                
                 <li>
                   <a
                     href="#"

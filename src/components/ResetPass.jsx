@@ -1,15 +1,15 @@
 import React from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import forgot from "../assets/forgot.svg";
+import reset from "../assets/reset.svg";
 
-const ForgetPass = () => {
+const ResetPass = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     // Add your logic for form submission here
 
     // Show a success toast
-    toast.success("Password reset email sent!", {
+    toast.success("Password changed successfully!", {
       position: "bottom-center",
       autoClose: 3000,
       hideProgressBar: false,
@@ -26,21 +26,21 @@ const ForgetPass = () => {
         <div className="md:w-1/2 order-2 md:order-1">
           <div className="bg-white text-black shadow-md rounded-lg p-8 ">
             <h2 className="text-2xl font-bold mb-6 text-black">
-              Forgot Password?
+              Reset Password
             </h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-4 ">
                 <label
                   htmlFor="email"
-                  className="block text-sm font-bold  mb-2"
+                  className="block text-sm semi-bold  mb-2"
                 >
-                  Email
+                  New Password
                 </label>
                 <input
-                  type="email"
-                  id="email"
+                  type="password"
+                  id="password"
                   className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-black"
-                  placeholder="Enter your email"
+                  placeholder="Enter your new password"
                   required
                 />
               </div>
@@ -49,7 +49,7 @@ const ForgetPass = () => {
                   type="submit"
                   className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-slate-500 transition-colors duration-300"
                 >
-                  Submit
+                  Set Password
                 </button>
                 <a
                   href="/signup"
@@ -63,8 +63,8 @@ const ForgetPass = () => {
         </div>
         <div className="md:w-1/2 md:ml-8 mt-4 md:mt-3 order-1 md:order-2">
           <img
-            src={forgot}
-            alt="forgot-Image"
+            src={reset}
+            alt="reset-image"
             className="w-full rounded-lg md:block hidden"
           />
         </div>
@@ -74,4 +74,4 @@ const ForgetPass = () => {
   );
 };
 
-export default ForgetPass;
+export default ResetPass;

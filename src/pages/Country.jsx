@@ -41,9 +41,9 @@ const Country = () => {
 
   return (
     <div className="bg-black min-h-screen flex flex-col items-center justify-center text-white mt-12">
-      <h1 className="text-4xl font-bold mb-8 mt-6">Our App </h1>
+      <h1 className="text-4xl font-bold mb-8 mt-12">Our App </h1>
       <h1 className="text-4xl font-bold mb-8">
-        Is soon coming to your Country
+       coming soon in the below countries
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {countries.map((country, index) => (
