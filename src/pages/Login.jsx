@@ -70,7 +70,7 @@ function LoginForm(props) {
               </button>
             </form>
             <div className="flex justify-between mt-4">
-              <a href="/signup" className="text-green-600 no-underline">
+              <a href="/account-type" className="text-green-600 no-underline">
                 Don't have an account? Sign up
               </a>
               <a

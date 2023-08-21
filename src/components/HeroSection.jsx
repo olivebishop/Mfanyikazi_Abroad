@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import hero from '../assets/hero.jpg';
 
+
 const HeroSection = () => {
   return (
     <section className="bg-black">
@@ -15,7 +16,7 @@ const HeroSection = () => {
           </p>
           <div className="flex flex-wrap gap-3 md:justify-start">
             <Link
-              to="/signup"
+              to="/account-type"
               className="flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-green-500 hover:bg-slate-500 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900 no-underline "
             >
               Get started
