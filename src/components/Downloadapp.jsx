@@ -4,7 +4,7 @@ import './css/DownloadApp.css';
 
 const DownloadApp = () => {
   return (
-    <section className="bg-gray-100 py-10">
+    <section className="bg-gray-100 py-10 mt-16"> {/* Added mt-16 for margin-top */}
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-center items-center">
           <div className="md:w-1/2 md:pr-8 mb-6">

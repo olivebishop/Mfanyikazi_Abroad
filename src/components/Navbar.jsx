@@ -5,7 +5,7 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="flex items-center justify-between flex-wrap p-4 bg-black fixed w-full">
+    <nav className="flex items-center justify-between flex-wrap p-4 bg-black fixed w-full z-10">
       <div className="flex items-center flex-shrink-0 text-white mr-6 lg:mr-72">
         <h1 className="text-white text-lg">
           <span className="text-green-500 h-2">Mfanyikazi</span>Abroad

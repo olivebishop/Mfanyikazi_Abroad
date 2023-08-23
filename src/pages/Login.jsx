@@ -16,11 +16,21 @@ function LoginForm(props) {
       const response = await axios.post("http://localhost:9000/api/v1/login", {
         email: email, password: password
       });
-      const { token } = response.data;
+      const { token , accountType} = response.data;
       localStorage.setItem("authToken", token);
       console.log(`The status is: ${response.status}`);
       toast.success("Login successful");
+      //logic to redirect users to their respective dashboards
+      if (accountType === "employer") {
+        navigate("/employer-dashboard");
+      } else if (accountType === "employee") {
+        navigate("/employee-dashboard");
+      } else if (accountType === "agency") {
+        navigate("/agency-dashboard");
+      } else {
+        // Default fallback route (handle admin if needed)
       navigate("/dashboard");
+      }
     } catch (error) {
       console.error(error);
       toast.error("username or password is incorrect!");
