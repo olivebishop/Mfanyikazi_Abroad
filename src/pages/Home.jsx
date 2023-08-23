@@ -6,6 +6,7 @@ import PartnerSection from "../components/PartnerSection";
 import StatisticsSection from "../components/StatisticsSection";
 import DownloadApp from "../components/Downloadapp"
 import Footer from "../components/Footer";
+import ChatBox from "../components/ChatBox";
 
 const HomePage = () => {
   return (
@@ -21,6 +22,7 @@ const HomePage = () => {
       <StatisticsSection />
 
       <NewsletterSection />
+      <ChatBox/>
       <Footer />
       
       {/* Add more sections and components for your homepage */}
