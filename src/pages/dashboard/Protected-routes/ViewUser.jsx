@@ -3,7 +3,7 @@ import React from 'react'
 function ViewUser() {
   return (
     <div>
-        <h1>view users</h1>
+        <h1 className='text-center mt-20'>view users</h1>
     </div>
   )
 }

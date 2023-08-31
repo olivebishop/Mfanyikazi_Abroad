@@ -65,7 +65,7 @@ const Country = () => {
             <h2 className="text-xl font-bold mb-2">{country.name}</h2>
             <p className="text-sm">{country.info}</p>
             <Link
-              to="/signup"
+              to="/account-type"
               className="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 rounded mt-4 block text-center no-underline"
             >
               View Jobs

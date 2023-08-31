@@ -30,16 +30,21 @@ import EmployerSignup from "./components/register/EmployerSignup.jsx"
 import EmployeeSignup from "./components/register/EmployeeSignup.jsx"
 import AgencySignup from "./components/register/AgencySignup.jsx"
 import TermsAndConditions from "./components/TermsCondtions";
+import DashboardHeader from "./components/DashboardHeader";
+import SubmitVerification from "./components/verification/SubmitVerification";
+import PendingVerification from "./components/verification/PendingVerification";
+import AgencyVerification from  "./components/verification/AgencyVerification";
+import EmployerVerification from "./components/verification/EmployerVerification"
 
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [authToken, setAuthToken] = useState(false);
+  //const [authToken, setAuthToken] = useState(false);
   const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    setAuthToken(token);
+    //const token = localStorage.getItem('authToken');
+    //setAuthToken(token);
 
     const role = localStorage.getItem('userRole'); // Make sure to set this after successful login
     setUserRole(role);
@@ -53,53 +58,62 @@ function App() {
 
   return (
     <div className="App">
-      {loading ? (
-        <Preloader />
-      ) : (
-        <BrowserRouter>
-          {!authToken && <Navbar />}
-          <br />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/services" element={<ServicesPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/country" element={<CountryPage />} />
-            <Route path="/signup" element={<SignupPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/forgot-password" element={<ForgotPass />} />
-            <Route path="/reset-password" element={<ResetPass />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/upgrade-modal" element={<UpgradeModal/>} />
-            <Route path="/account-type" element={<AccountType/>} />
-            <Route path="/agency-signup" element={<AgencySignup/>} />
-            <Route path="/employer-signup" element={<EmployerSignup/>} />
-            <Route path="/employee-signup" element={<EmployeeSignup/>} />
-            <Route path="/terms-and-conditions" element={<TermsAndConditions/>} />
-
-
-            {/* Role-based access control */}
-            {userRole === 'admin' && (
+      <BrowserRouter>
+        <Navbar /> {/* Always show Navbar */}
+        {loading ? (
+          <Preloader />
+        ) : (
+          <>
+            <DashboardHeader /> {/* Show the DashboardHeader */}
+            <br />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/services" element={<ServicesPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/country" element={<CountryPage />} />
+              <Route path="/signup" element={<SignupPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/forgot-password" element={<ForgotPass />} />
+              <Route path="/reset-password" element={<ResetPass />} />
               <Route path="/dashboard" element={<Dashboard />} />
-            )}
-            {userRole === 'agency' && (
-              <Route path="/agency-dashboard" element={<AgencyDashboard />} />
-            )}
-            {userRole === 'employer' && (
-              <Route path="/employer-dashboard" element={<EmployerDashboard />} />
-            )}
-            {userRole === 'employee' && (
-              <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
-            )}
+              <Route path="/upgrade-modal" element={<UpgradeModal/>} />
+              <Route path="/account-type" element={<AccountType/>} />
+              <Route path="/agency-signup" element={<AgencySignup/>} />
+              <Route path="/employer-signup" element={<EmployerSignup/>} />
+              <Route path="/employee-signup" element={<EmployeeSignup/>} />
+              <Route path="/terms-and-conditions" element={<TermsAndConditions/>} />
+              <Route path="/submit-verification" element={<SubmitVerification/>} />
+              <Route path="/pending-verification" element={<PendingVerification/>} />
+              <Route path="/agency-verification" element={<AgencyVerification/>} />
+              <Route path="/employer-verification" element={<EmployerVerification/>} />
 
-            <Route path="/user" element={<UsersPage />} />
-            <Route path="/create-users" element={<CreateUser />} />
-            <Route path="/view-users" element={<ViewUser />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <ToastContainer />
-        </BrowserRouter>
-      )}
+
+
+
+              {/* Role-based access control */}
+              {userRole === 'admin' && (
+                <Route path="/dashboard" element={<Dashboard />} />
+              )}
+              {userRole === 'agency' && (
+                <Route path="/agency-dashboard" element={<AgencyDashboard />} />
+              )}
+              {userRole === 'employer' && (
+                <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+              )}
+              {userRole === 'employee' && (
+                <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+              )}
+
+              <Route path="/user" element={<UsersPage />} />
+              <Route path="/create-users" element={<CreateUser />} />
+              <Route path="/view-users" element={<ViewUser />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <ToastContainer />
+          </>
+        )}
+      </BrowserRouter>
     </div>
   );
 }

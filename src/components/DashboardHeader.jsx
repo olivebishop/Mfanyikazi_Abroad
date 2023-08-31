@@ -18,7 +18,8 @@ const DashboardHeader = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
-    if (!token) {
+    const publicRoutes = ["/", "/about", "/services", "/contact", "/signup", "/forgot-password", "/account-type", "/terms-and-conditions","/country", "/reset-password","/employer-signup","/employee-signup","/agency-signup","/pending-verification","/submit-verification", "/agency-verification","/employer-verification"]; //public routes
+    if (!token && !publicRoutes.includes(window.location.pathname)) {
       navigate("/login");
     }
   }, [navigate]);
@@ -68,8 +69,11 @@ const DashboardHeader = () => {
     setShowProfileModal(false);
   };
 
+  // Get the authToken state
+  const authToken = localStorage.getItem("authToken");
+
   return (
-    <header className="bg-slate-500 text-white p-4 fixed top-0 left-0 w-full z-50">
+    <header className={`bg-slate-500 text-white p-4 fixed top-0 left-0 w-full z-50 ${authToken ? "" : "hidden"}`}>
       <div className="flex flex-wrap items-center justify-between">
         {/* Profile */}
         <div
@@ -107,6 +111,7 @@ const DashboardHeader = () => {
       {/* Help Modal */}
       {showHelpModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          {/* ... rest of the modal ... */}
           <div className="bg-white text-black rounded-lg shadow-lg p-6">
             <h3 className="text-lg font-bold mb-4">Help</h3>
             <p>
@@ -137,6 +142,7 @@ const DashboardHeader = () => {
       {/* Profile Modal */}
       {showProfileModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          {/* ... rest of the modal ... */}
           <div className="bg-white text-black rounded-lg shadow-lg p-6">
             <h3 className="text-lg font-bold mb-4">Update Profile</h3>
             <div className="mb-4">
