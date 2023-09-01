@@ -73,10 +73,10 @@ const AccountType = () => {
         <span className="flex flex-1">
           <span className="flex flex-col">
             <span className="block font-medium text-lg text-gray-700">
-              Employee
+              JobSeeker
             </span>
             <span className="mt-1 flex items-center text-sm text-gray-600 ">
-              For Kenyan employee
+              For Kenyan JobSeekers
             </span>
           </span>
         </span>
