@@ -21,9 +21,6 @@ import ResetPass from "./components/ResetPass.jsx";
 import AgencyDashboard from "./pages/dashboard/AgencyDashboard.jsx";
 import EmployeeDashboard from "./pages/dashboard/EmployeeDashboard.jsx";
 import EmployerDashboard from "./pages/dashboard/EmployerDashboard.jsx";
-import UsersPage from "./pages/dashboard/Protected-routes/UsersPage";
-import CreateUser from "./pages/dashboard/Protected-routes/CreateUser";
-import ViewUser from "./pages/dashboard/Protected-routes/ViewUser";
 import UpgradeModal from "./components/UpgradeModal.jsx"
 import AccountType from "./components/AccountType.jsx"
 import EmployerSignup from "./components/register/EmployerSignup.jsx"
@@ -105,9 +102,8 @@ function App() {
                 <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
               )}
 
-              <Route path="/user" element={<UsersPage />} />
-              <Route path="/create-users" element={<CreateUser />} />
-              <Route path="/view-users" element={<ViewUser />} />
+           
+              
               <Route path="*" element={<NotFound />} />
             </Routes>
             <ToastContainer />

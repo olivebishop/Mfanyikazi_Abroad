@@ -73,7 +73,7 @@ const DashboardHeader = () => {
   const authToken = localStorage.getItem("authToken");
 
   return (
-    <header className={`bg-slate-500 text-white p-4 fixed top-0 left-0 w-full z-50 ${authToken ? "" : "hidden"}`}>
+    <header className={`bg-slate-900 text-white p-4 fixed top-0 left-0 w-full z-50 ${authToken ? "" : "hidden"}`}>
       <div className="flex flex-wrap items-center justify-between">
         {/* Profile */}
         <div

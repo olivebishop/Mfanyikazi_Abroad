@@ -1,19 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Field, ErrorMessage, Form } from "formik";
 import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const NewsletterSection = () => {
-  const handleSubmit = (values, { setSubmitting, resetForm }) => {
-    setTimeout(() => {
-      toast.success("You have subscribed to our newsletter!", {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
-      resetForm();
+  const [isAlreadySubscribed, setIsAlreadySubscribed] = useState(false);
+
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:9000/api/v1/subscribe",
+        values
+      );
+  
+      if (response.status === 200) {
+        toast.success("You have subscribed to our newsletter!", {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
+        resetForm();
+        setIsAlreadySubscribed(false);
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        toast.error("Email is already subscribed. Please use a different email.", {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
+      } else {
+        toast.error("Subscription failed. Please try again later.", {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
+      }
+    } finally {
       setSubmitting(false);
-    }, 500);
+    }
   };
+  
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -57,6 +80,11 @@ const NewsletterSection = () => {
               </button>
             </Form>
           </Formik>
+          {isAlreadySubscribed && (
+            <p className="text-red-500 mt-4">
+              Email is already subscribed. Please use a different email.
+            </p>
+          )}
         </div>
       </div>
       <ToastContainer />

@@ -3,8 +3,11 @@ import three from '../assets/three.jpg';
 import './css/DownloadApp.css';
 
 const DownloadApp = () => {
+  // my googledrive link to apk file.
+  const apkFileUrl = 'https://drive.google.com/uc?export=download&id=1aS6Cdo6nF2ExGA7YzfaBQQQa9L4dqgWI';
+
   return (
-    <section className="bg-gray-100 py-10 mt-16"> {/* Added mt-16 for margin-top */}
+    <section className="bg-gray-100 py-10 mt-16">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-center items-center">
           <div className="md:w-1/2 md:pr-8 mb-6">
@@ -15,7 +18,8 @@ const DownloadApp = () => {
               <h2 className="text-3xl font-bold mb-4 text-center">Our App is Coming Soon...</h2>
               <p className="text-2xl font-bold mb-4 text-center">Stay connected on the go with our mobile app.</p>
               <div className="flex justify-center">
-                <a href="#" className="beeping-button no-underline">
+                {/* Add the download link */}
+                <a href={apkFileUrl} className="beeping-button no-underline">
                   Download Now
                 </a>
               </div>

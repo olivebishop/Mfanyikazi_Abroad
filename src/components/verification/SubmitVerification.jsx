@@ -2,75 +2,169 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import validator from 'validator';
 
 const SubmitVerification = () => {
   const navigate = useNavigate();
 
-  const [files, setFiles] = useState({
+  const [userData, setUserData] = useState({
+    fullName: '',
+    phoneNumber: '',
+    idNumber: '',
+    passportNumber: '',
     nationalId: null,
     kraCert: null,
-    goodConduct: null,
-    companyRegistrationId: null,
   });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUserData((prevData) => ({ ...prevData, [name]: value }));
+  };
 
   const handleFileChange = (event, type) => {
     const file = event.target.files[0];
-    setFiles((prevFiles) => ({ ...prevFiles, [type]: file }));
+    setUserData((prevData) => ({ ...prevData, [type]: file }));
   };
 
-  const handleSubmit = () => {
-    // Here you would need to implement the logic to send files to the backend
-    // and then handle the navigation based on verification status.
+  const handleSubmit = async () => {
+    // Implement server-side validation here
+    if (!validateFormData()) {
+      return;
+    }
+
+    // Here you would need to implement the logic to send user data and files to the backend
+    // for verification, and then handle the navigation based on verification status.
 
     // For this example, let's assume successful submission.
-    toast.success('Documents submitted to admin.');
+    toast.success('Documents and user data submitted to admin.');
     navigate('/pending-verification'); // Navigate to pending verification
   };
 
+  const validateFormData = () => {
+    // Validate your data here
+    if (!userData.fullName || !userData.phoneNumber || !userData.idNumber || !userData.nationalId) {
+      toast.error('All fields are required.');
+      return false;
+    }
+
+    // For example, you can validate the phone number format using regular expressions
+    const phoneRegex = /^\+254\s\d{9}$/;
+    if (!phoneRegex.test(userData.phoneNumber)) {
+      toast.error('Invalid Phone Number format. It should be like +254 790099220.');
+      return false;
+    }
+
+    // Validate ID Number format (8 digits)
+    if (!validator.isNumeric(userData.idNumber) || userData.idNumber.length !== 8) {
+      toast.error('Invalid ID Number format. It should be 8 digits.');
+      return false;
+    }
+
+    // Check if both national ID and KRA Certificate files are selected
+    if (!userData.nationalId || !userData.kraCert) {
+      toast.error('Both National ID and KRA Certificate files are required.');
+      return false;
+    }
+
+    // Validate file types (allow only image and PDF)
+    const validFileTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+    if (!validFileTypes.includes(userData.nationalId.type) || !validFileTypes.includes(userData.kraCert.type)) {
+      toast.error('Invalid file type. Please upload an image (JPEG or PNG) or a PDF file.');
+      return false;
+    }
+
+    return true;
+  };
+
   return (
-    <div className="p-4 mt-14">
-       <h4 className="text-2xl font-semibold mb-4">Dear Job Seeker Kindly</h4>
-      <h2 className="text-2xl font-semibold mb-4">Submit your passport and identifaction card for approval</h2>
+    <div className="p-4 mt-14 sm:mx-auto sm:max-w-md">
+      <h2 className="text-2xl font-bold mb-4">
+        Submit your details for approval
+      </h2>
       <div className="space-y-4">
         <div>
-          <label htmlFor="nationalId">National ID:</label>
+          <label htmlFor="fullName" className="block text-gray-700 font-semibold">Full Name:</label>
           <input
-            type="file"
-            id="nationalId"
-            onChange={(e) => handleFileChange(e, 'nationalId')}
+            type="text"
+            id="fullName"
+            name="fullName"
+            value={userData.fullName}
+            onChange={handleInputChange}
+            required
+            placeholder="John Doe "
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 transition duration-300 ease-in-out transform hover:scale-105"
           />
+        </div>
+        <div className="flex space-x-4">
+          <div className="w-1/2">
+            <label htmlFor="phoneNumber" className="block text-gray-700 font-semibold">Phone Number:</label>
+            <input
+              type="text"
+              id="phoneNumber"
+              name="phoneNumber"
+              value={userData.phoneNumber}
+              onChange={handleInputChange}
+              required
+              placeholder="+254 790099220"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 transition duration-300 ease-in-out transform hover:scale-105"
+            />
+          </div>
+          <div className="w-1/2">
+            <label htmlFor="idNumber" className="block text-gray-700 font-semibold">ID Number:</label>
+            <input
+              type="text"
+              id="idNumber"
+              name="idNumber"
+              value={userData.idNumber}
+              onChange={handleInputChange}
+              required
+              placeholder="12345678"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 transition duration-300 ease-in-out transform hover:scale-105"
+            />
+          </div>
         </div>
         <div>
-          <label htmlFor="kraCert">KRA Certificate:</label>
-          <input
-            type="file"
-            id="kraCert"
-            onChange={(e) => handleFileChange(e, 'kraCert')}
-          />
+          <label className="block text-gray-700 font-semibold">File Upload:</label>
+          <div className="flex space-x-4">
+            <div className="w-1/2">
+              <label htmlFor="nationalId" className="block text-blue-500 font-semibold hover:text-blue-600 cursor-pointer">
+                National ID
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6 inline-block ml-2">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+              </label>
+              <input
+                type="file"
+                id="nationalId"
+                accept="image/jpeg, image/png, application/pdf"
+                onChange={(e) => handleFileChange(e, 'nationalId')}
+                className="hidden"
+              />
+            </div>
+            <div className="w-1/2">
+              <label htmlFor="kraCert" className="block text-blue-500 font-semibold hover:text-blue-600 cursor-pointer">
+                KRA Certificate
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6 inline-block ml-2">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+              </label>
+              <input
+                type="file"
+                id="kraCert"
+                accept="image/jpeg, image/png, application/pdf"
+                onChange={(e) => handleFileChange(e, 'kraCert')}
+                className="hidden"
+              />
+            </div>
+          </div>
         </div>
-        <div>
-          <label htmlFor="goodConduct">Good Conduct Certificate:</label>
-          <input
-            type="file"
-            id="goodConduct"
-            onChange={(e) => handleFileChange(e, 'goodConduct')}
-          />
-        </div>
-        <div>
-          <label htmlFor="companyRegistrationId">Company Registration ID:</label>
-          <input
-            type="file"
-            id="companyRegistrationId"
-            onChange={(e) => handleFileChange(e, 'companyRegistrationId')}
-          />
-        </div>
+        <button
+          className="mt-4 bg-gray-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg w-full transition duration-300 ease-in-out transform hover:scale-105"
+          onClick={handleSubmit}
+        >
+          Submit
+        </button>
       </div>
-      <button
-        className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-        onClick={handleSubmit}
-      >
-        Submit Documents
-      </button>
       <ToastContainer />
     </div>
   );
