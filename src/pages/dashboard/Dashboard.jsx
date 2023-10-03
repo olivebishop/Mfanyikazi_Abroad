@@ -14,6 +14,7 @@ import ViewReports from "../../pages/dashboard/Protected-routes/manage-reports/V
 import Profile from "./Protected-routes/manage-settings/Profile";
 import CheckLogs from "./Protected-routes/manage-settings/CheckLogs";
 import AdminChart from '../../pages/dashboard/AdminChart';
+import ViewDocs from "./Protected-routes/manage-reports/ViewDocs";
 
 const Dashboard = ({ loggedIn }) => {
   const [selectedComponent, setSelectedComponent] = useState("content");
@@ -21,7 +22,7 @@ const Dashboard = ({ loggedIn }) => {
   return (
     <div className="flex flex-col min-h-screen">
       <DashboardHeader />
-      <div className="flex-1 flex">
+      <div className="flex-1 flex flex-col lg:flex-row">
         <Sidebar onSelectComponent={setSelectedComponent} />
         
         <div className="flex-1">
@@ -35,6 +36,7 @@ const Dashboard = ({ loggedIn }) => {
           {selectedComponent === "addJob" && <AddJob />}
           {selectedComponent === "viewJob" && <ViewJob />}
           {selectedComponent === "viewReports" && <ViewReports />}
+          {selectedComponent === "viewDocs" && <viewDocs />}
           {selectedComponent === "profile" && <Profile/>}
           {selectedComponent === "checkLogs" && <CheckLogs/>}
 

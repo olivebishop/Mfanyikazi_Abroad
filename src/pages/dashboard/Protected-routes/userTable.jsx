@@ -1,6 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useTable, usePagination } from 'react-table';
+import { useTable, usePagination, useSortBy } from 'react-table';
 import axios from 'axios';
+import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
+
+// Function to send a verification email
+const sendVerificationEmail = async (userId, userRole) => {
+  try {
+    const response = await axios.post('http://localhost:9000/api/v1/sendVerificationEmail', {
+      userId,
+      userRole,
+    });
+
+    // Handle the response (e.g., display a success message)
+    console.log('Verification email sent:', response.data.message);
+  } catch (error) {
+    // Handle errors (e.g., display an error message)
+    console.error('Error sending verification email:', error);
+  }
+};
 
 const UserTable = () => {
   const [users, setUsers] = useState([]);
@@ -34,11 +51,11 @@ const UserTable = () => {
         Cell: ({ row }) => {
           const userRole = userRoles[row.original.id] || '';
           return (
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center space-x-2">
               <select
                 value={userRole}
                 onChange={(e) => handleRoleChange(e, row.original.id)}
-                className="py-1 px-2 rounded mr-2 bg-slate-300 text-center text-slate-900"
+                className="py-1 px-2 rounded bg-slate-300 text-slate-900"
               >
                 <option value="">Assign Role</option>
                 <option value="admin">Admin</option>
@@ -69,6 +86,7 @@ const UserTable = () => {
   };
 
   const handleVerify = (user) => {
+    console.log('Verifying user:', user);
     const role = userRoles[user.id];
     if (role) {
       // Send a request to your backend API to assign the role and send the verification message
@@ -80,16 +98,21 @@ const UserTable = () => {
         .then((response) => {
           // Handle the response from the API (e.g., display a success message)
           setVerificationMessage(`User ${user.username} verified as ${role}.`);
+
+          // Call the function to send the verification email
+          sendVerificationEmail(user.id, role);
         })
         .catch((error) => {
           // Handle any errors from the API (e.g., display an error message)
           console.error('Error assigning role and notifying user:', error);
-          setVerificationMessage('Error assigning role. Please try again later.');
+          setVerificationMessage('User already assigned role. Please try another user.');
         });
     } else {
       console.log('Please select a role to assign before verifying.');
     }
   };
+
+  const data = React.useMemo(() => users, [users]);
 
   const {
     getTableProps,
@@ -106,24 +129,28 @@ const UserTable = () => {
   } = useTable(
     {
       columns,
-      data: users,
+      data,
       initialState: { pageIndex: 0 },
     },
+    useSortBy,
     usePagination
   );
 
   return (
     <div className="overflow-x-auto">
-      <table {...getTableProps()} className="min-w-full">
+      <table {...getTableProps()} className="min-w-full table-auto">
         <thead>
           {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
+            <tr {...headerGroup.getHeaderGroupProps()} className="bg-slate-900 text-white">
               {headerGroup.headers.map((column) => (
                 <th
-                  {...column.getHeaderProps()}
-                  className="py-2 text-center font-semibold"
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
+                  className="py-2 text-center font-semibold cursor-pointer"
                 >
                   {column.render('Header')}
+                  <span className="ml-1">
+                    {column.isSorted ? (column.isSortedDesc ? <FaCaretDown /> : <FaCaretUp />) : null}
+                  </span>
                 </th>
               ))}
             </tr>
@@ -164,7 +191,7 @@ const UserTable = () => {
         >
           Previous
         </button>
-        <span>
+        <span className="mx-4">
           Page{' '}
           <strong>
             {pageIndex + 1} of {pageOptions.length}
@@ -182,7 +209,7 @@ const UserTable = () => {
           Next
         </button>
       </div>
-      <div className="verification-message">
+      <div className="verification-message mt-4">
         <p>{verificationMessage}</p>
       </div>
     </div>

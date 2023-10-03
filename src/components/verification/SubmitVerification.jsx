@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import validator from 'validator';
+import axios from 'axios'; // Import Axios for making HTTP requests
 
 const SubmitVerification = () => {
   const navigate = useNavigate();
@@ -11,7 +12,6 @@ const SubmitVerification = () => {
     fullName: '',
     phoneNumber: '',
     idNumber: '',
-    passportNumber: '',
     nationalId: null,
     kraCert: null,
   });
@@ -32,12 +32,29 @@ const SubmitVerification = () => {
       return;
     }
 
-    // Here you would need to implement the logic to send user data and files to the backend
-    // for verification, and then handle the navigation based on verification status.
+    // Create a FormData object to send both user data and files
+    const formData = new FormData();
+    formData.append('fullName', userData.fullName);
+    formData.append('phoneNumber', userData.phoneNumber);
+    formData.append('idNumber', userData.idNumber);
+    formData.append('nationalId', userData.nationalId);
+    formData.append('kraCert', userData.kraCert);
 
-    // For this example, let's assume successful submission.
-    toast.success('Documents and user data submitted to admin.');
-    navigate('/pending-verification'); // Navigate to pending verification
+    try {
+      // Send the FormData to the backend
+      await axios.post('http://localhost:9000/api/v1/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      // Display a success message and navigate to the admin dashboard
+      toast.success('Documents and user data submitted to admin.');
+      navigate('/pending-verification'); // Navigate to the admin dashboard
+    } catch (error) {
+      console.error(error);
+      toast.error('Error submitting documents. Please try again.');
+    }
   };
 
   const validateFormData = () => {
@@ -91,7 +108,7 @@ const SubmitVerification = () => {
             value={userData.fullName}
             onChange={handleInputChange}
             required
-            placeholder="John Doe "
+            placeholder="John Doe"
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500 transition duration-300 ease-in-out transform hover:scale-105"
           />
         </div>

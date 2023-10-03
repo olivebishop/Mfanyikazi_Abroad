@@ -1,0 +1,22 @@
+/* Add these styles to your CSS file */
+@media (min-width: 640px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .content-container {
+    margin-left: 250px; /* Adjust the margin-left to match the width of your sidebar */
+    transition: margin-left 0.3s ease; /* Add a smooth transition effect */
+  }

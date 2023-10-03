@@ -1,0 +1,6 @@
+/* Sidebar.css (or .scss) */
+.sidebar {
+    min-height: calc(100vh - 64px); /* Adjust the value as needed */
+    /* ... your other sidebar styles ... */
+  }
+  

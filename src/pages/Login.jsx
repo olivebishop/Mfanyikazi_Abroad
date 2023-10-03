@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+
 function LoginForm(props) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -13,27 +14,36 @@ function LoginForm(props) {
     e.preventDefault();
 
     try {
+      // Make a POST request to your login API endpoint
       const response = await axios.post("http://localhost:9000/api/v1/login", {
-        email: email, password: password
+        email: email,
+        password: password,
       });
-      const { token , accountType} = response.data;
+
+      // Extract token and userRole from the response data
+      const { token, userRole } = response.data;
+
+      // Store the token and userRole in localStorage
       localStorage.setItem("authToken", token);
+      localStorage.setItem("userRole", userRole);
+
       console.log(`The status is: ${response.status}`);
       toast.success("Login successful");
-      //logic to redirect users to their respective dashboards
-      if (accountType === "employer") {
+
+      // Logic to redirect users to their respective dashboards based on userRole
+      if (userRole === "employer") {
         navigate("/employer-dashboard");
-      } else if (accountType === "employee") {
+      } else if (userRole === "employee") {
         navigate("/employee-dashboard");
-      } else if (accountType === "agency") {
+      } else if (userRole === "agency") {
         navigate("/agency-dashboard");
       } else {
         // Default fallback route (handle admin if needed)
-      navigate("/dashboard");
+        navigate("/dashboard");
       }
     } catch (error) {
       console.error(error);
-      toast.error("username or password is incorrect!");
+      toast.error("Your account is not verified. Please contact support.");
     }
   };
 
@@ -83,10 +93,7 @@ function LoginForm(props) {
               <a href="/account-type" className="text-green-600 no-underline">
                 Don't have an account? Sign up
               </a>
-              <a
-                href="/forgot-password"
-                className="text-green-600 no-underline"
-              >
+              <a href="/forgot-password" className="text-green-600 no-underline">
                 Forgot Password?
               </a>
             </div>
@@ -95,6 +102,6 @@ function LoginForm(props) {
       </div>
     </div>
   );
-};
+}
 
 export default LoginForm;

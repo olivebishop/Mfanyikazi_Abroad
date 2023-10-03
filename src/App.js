@@ -42,8 +42,9 @@ function App() {
   useEffect(() => {
     //const token = localStorage.getItem('authToken');
     //setAuthToken(token);
-
-    const role = localStorage.getItem('userRole'); // Make sure to set this after successful login
+ 
+    const role = localStorage.getItem('userRole');// Make sure to set this after successful login
+    console.log('User Role:', role);
     setUserRole(role);
   }, []);
 
@@ -101,8 +102,6 @@ function App() {
               {userRole === 'employee' && (
                 <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
               )}
-
-           
               
               <Route path="*" element={<NotFound />} />
             </Routes>

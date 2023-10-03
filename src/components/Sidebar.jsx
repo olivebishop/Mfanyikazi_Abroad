@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { FaUsers, FaGlobe, FaBook, FaBriefcase, FaFile, FaWrench , } from "react-icons/fa";
+import {
+  FaUsers,
+  FaGlobe,
+  FaBook,
+  FaBriefcase,
+  FaFile,
+  FaWrench,
+} from "react-icons/fa";
+import '.././components/css/Sidebar.css'
+
 const Sidebar = ({ onSelectComponent }) => {
   const [showDashboard, setShowDashboard] = useState(true);
   const [showUsersMenu, setShowUsersMenu] = useState(false);
@@ -81,15 +90,17 @@ const Sidebar = ({ onSelectComponent }) => {
   };
 
   return (
-    <aside className="bg-black text-white w-full sm:w-64">
+    <aside className="bg-black text-white w-1/6 sm:w-64 fixed sidebar">
       <div className="p-4 flex items-center justify-between mt-16">
-        <span className="text-slate-500 text-lg">Mfanyikazi-Abroad</span>
+        <span className="text-slate-500 text-lg mb-2">Mfanyikazi-Abroad</span>
       </div>
       <nav className="p-4">
         <ul className="space-y-2">
           <li>
             <button
-              className={`text-white hover:text-green-500 block rounded-md p-2 ${showDashboard ? "bg-green-500 text-black" : ""}`}
+              className={`text-white hover:text-green-500 block rounded-md p-2 mb-2 ${
+                showDashboard ? "bg-green-500 text-black" : ""
+              }`}
               onClick={toggleDashboard}
             >
               Dashboard
@@ -97,10 +108,12 @@ const Sidebar = ({ onSelectComponent }) => {
           </li>
           <li>
             <button
-              className={`text-white hover:bg-green-500 hover:text-white block rounded-md p-2 ${showUsersMenu ? "bg-green-500 text-black" : ""}`}
+              className={`text-white hover:bg-green-500 hover:text-white block rounded-md p-2 ${
+                showUsersMenu ? "bg-green-500 text-black" : ""
+              }`}
               onClick={toggleUsersMenu}
             >
-            <FaUsers className="mr-2" /> Manage Users
+              <FaUsers className="mr-2" /> Manage Users
             </button>
             {showUsersMenu && (
               <ul className="ml-4">
@@ -117,16 +130,18 @@ const Sidebar = ({ onSelectComponent }) => {
           </li>
           <li>
             <button
-              className={`text-white hover:bg-green-500 hover:text-white block rounded-md p-2 ${showCountriesMenu ? "bg-green-500 text-black" : ""}`}
+              className={`text-white hover:bg-green-500 hover:text-white block rounded-md p-2 ${
+                showCountriesMenu ? "bg-green-500 text-black" : ""
+              }`}
               onClick={toggleCountriesMenu}
             >
-             <FaGlobe className="mr-2"/>Manage Countries
+              <FaGlobe className="mr-2" />Manage Countries
             </button>
             {showCountriesMenu && (
               <ul className="ml-4">
                 <li>
                   <button
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-2"
+                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-1"
                     onClick={() => onSelectComponent("addCountry")}
                   >
                     Add Country
@@ -134,7 +149,7 @@ const Sidebar = ({ onSelectComponent }) => {
                 </li>
                 <li>
                   <button
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-2"
+                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-1"
                     onClick={() => onSelectComponent("viewCountry")}
                   >
                     View Countries
@@ -145,10 +160,12 @@ const Sidebar = ({ onSelectComponent }) => {
           </li>
           <li>
             <button
-              className={`text-white hover:bg-green-500 hover:text-white block rounded-md p-2 ${showCoursesMenu ? "bg-green-500 text-black" : ""}`}
+              className={`text-white hover:bg-green-500 hover:text-white block rounded-md p-2 ${
+                showCoursesMenu ? "bg-green-500 text-black" : ""
+              }`}
               onClick={toggleCoursesMenu}
             >
-             <FaBook className="mr-2"/>Manage Courses
+              <FaBook className="mr-2" />Manage Courses
             </button>
             {showCoursesMenu && (
               <ul className="ml-4">
@@ -173,10 +190,12 @@ const Sidebar = ({ onSelectComponent }) => {
           </li>
           <li>
             <button
-              className={`text-white hover:bg-green-500 hover:text-white block rounded-md p-2 ${showJobsMenu ? "bg-green-500 text-black" : ""}`}
+              className={`text-white hover:bg-green-500 hover:text-white block rounded-md p-2 ${
+                showJobsMenu ? "bg-green-500 text-black" : ""
+              }`}
               onClick={toggleJobsMenu}
             >
-            <FaBriefcase  className="mr-2"/>Manage Jobs
+              <FaBriefcase className="mr-2" />Manage Jobs
             </button>
             {showJobsMenu && (
               <ul className="ml-4">
@@ -201,10 +220,12 @@ const Sidebar = ({ onSelectComponent }) => {
           </li>
           <li>
             <button
-              className={`text-white hover:bg-green-500 hover:text-white block rounded-md p-2 ${showReportsMenu ? "bg-green-500 text-black" : ""}`}
+              className={`text-white hover:bg-green-500 hover:text-white block rounded-md p-2 ${
+                showReportsMenu ? "bg-green-500 text-black" : ""
+              }`}
               onClick={toggleReportsMenu}
             >
-             <FaFile className="mr-2"/>Manage Reports
+              <FaFile className="mr-2" />Manage Reports
             </button>
             {showReportsMenu && (
               <ul className="ml-4">
@@ -216,15 +237,25 @@ const Sidebar = ({ onSelectComponent }) => {
                     View Reports
                   </button>
                 </li>
+                <li>
+                  <button
+                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-2"
+                    onClick={() => onSelectComponent("viewDocs")}
+                  >
+                    View Docs
+                  </button>
+                </li>
               </ul>
             )}
           </li>
           <li>
             <button
-              className={`text-white hover:bg-green-500 hover:text-white block rounded-md p-2 ${showSettingsMenu ? "bg-green-500 text-black" : ""}`}
+              className={`text-white hover:bg-green-500 hover:text-white block rounded-md p-2 ${
+                showSettingsMenu ? "bg-green-500 text-black" : ""
+              }`}
               onClick={toggleSettingsMenu}
             >
-              <FaWrench className="mr-2"/>Settings
+              <FaWrench className="mr-2" />Settings
             </button>
             {showSettingsMenu && (
               <ul className="ml-4">

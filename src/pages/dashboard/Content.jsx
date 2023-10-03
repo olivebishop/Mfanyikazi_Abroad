@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { FaUsers, FaGlobe, FaBook, FaBriefcase } from "react-icons/fa";
 import CountUp from "react-countup";
+import  '../.././pages/content.css'
 
 const Content = () => {
   const [usersCount, setUsersCount] = useState(0);
   const [countriesCount, setCountriesCount] = useState(0);
   const [coursesCount, setCoursesCount] = useState(0);
-  const [jobsCount, setJobsCount] = useState(0);
+  const [jobCount, setJobCount] = useState(0);
 
   useEffect(() => {
     // Fetch data from your database here and update the state
@@ -21,6 +22,11 @@ const Content = () => {
       const usersData = await usersResponse.json();
       setUsersCount(usersData.length);
 
+      // Fetch jobs data
+      const jobResponse = await fetch("http://localhost:9000/api/v1/jobs");
+      const jobData = await jobResponse.json();
+      setJobCount(jobData.length);
+      
       // Fetch countries data
       const countriesResponse = await fetch("http://localhost:9000/api/v1/countries");
       const countriesData = await countriesResponse.json();
@@ -30,19 +36,14 @@ const Content = () => {
       const coursesResponse = await fetch("http://localhost:9000/api/v1/courses");
       const coursesData = await coursesResponse.json();
       setCoursesCount(coursesData.length);
-
-      // Fetch jobs data
-      const jobsResponse = await fetch("http://localhost:9000/api/v1/jobs");
-      const jobsData = await jobsResponse.json();
-      setJobsCount(jobsData.length);
-
+      
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
   return (
-    <section className="p-4 md:p-8 lg:p-10 xl:p-12 mt-16">
+    <section className="p-4 md:p-8 lg:p-10 xl:p-12 mt-16 content-container">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"> 
         {/* Users Widget */}
         <div className="bg-white rounded-lg shadow-lg p-4 border-t-2 border-blue-500"> 
@@ -82,7 +83,7 @@ const Content = () => {
           <FaBriefcase  className="text-3xl text-orange-500" /> 
           </div>
           <h3 className="text-base font-bold mb-1">Jobs</h3> 
-          <CountUp start={0} end={jobsCount} duration={2} separator="," prefix="" suffix="" className="text-lg font-bold text-center" /> 
+          <CountUp start={0} end={jobCount} duration={2} separator="," prefix="" suffix="" className="text-lg font-bold text-center" /> 
           <div className="w-1/4 h-1 bg-orange-500 mx-auto mt-1"></div>
         
         </div>

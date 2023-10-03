@@ -1,0 +1,4 @@
+.content-container {
+    margin-left: 250px; /* Adjust the margin-left to match the width of your sidebar */
+    transition: margin-left 0.3s ease; /* Add a smooth transition effect */
+  }
