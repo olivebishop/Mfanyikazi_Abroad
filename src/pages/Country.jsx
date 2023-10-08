@@ -40,7 +40,7 @@ const Country = () => {
   ];
 
   return (
-    <div className="bg-black min-h-screen flex flex-col items-center justify-center text-white mt-12">
+    <div className="bg-black min-h-screen flex flex-col items-center justify-center text-white mt-12 m-0">
       <h1 className="text-4xl font-bold mb-8 mt-12">Our App </h1>
       <h1 className="text-4xl font-bold mb-8">
        coming soon in the below countries

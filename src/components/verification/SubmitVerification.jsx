@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import validator from 'validator';
-import axios from 'axios'; // Import Axios for making HTTP requests
+import axios from 'axios';
 
 const SubmitVerification = () => {
   const navigate = useNavigate();
@@ -12,9 +12,10 @@ const SubmitVerification = () => {
     fullName: '',
     phoneNumber: '',
     idNumber: '',
-    nationalId: null,
-    kraCert: null,
   });
+
+  const [nationalIdFile, setNationalIdFile] = useState(null);
+  const [kraCertFile, setKraCertFile] = useState(null);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -23,7 +24,11 @@ const SubmitVerification = () => {
 
   const handleFileChange = (event, type) => {
     const file = event.target.files[0];
-    setUserData((prevData) => ({ ...prevData, [type]: file }));
+    if (type === 'nationalId') {
+      setNationalIdFile(file);
+    } else if (type === 'kraCert') {
+      setKraCertFile(file);
+    }
   };
 
   const handleSubmit = async () => {
@@ -32,13 +37,18 @@ const SubmitVerification = () => {
       return;
     }
 
-    // Create a FormData object to send both user data and files
     const formData = new FormData();
     formData.append('fullName', userData.fullName);
     formData.append('phoneNumber', userData.phoneNumber);
     formData.append('idNumber', userData.idNumber);
-    formData.append('nationalId', userData.nationalId);
-    formData.append('kraCert', userData.kraCert);
+
+    if (nationalIdFile) {
+      formData.append('nationalId', nationalIdFile);
+    }
+
+    if (kraCertFile) {
+      formData.append('kraCert', kraCertFile);
+    }
 
     try {
       // Send the FormData to the backend
@@ -59,12 +69,12 @@ const SubmitVerification = () => {
 
   const validateFormData = () => {
     // Validate your data here
-    if (!userData.fullName || !userData.phoneNumber || !userData.idNumber || !userData.nationalId) {
+    if (!userData.fullName || !userData.phoneNumber || !userData.idNumber) {
       toast.error('All fields are required.');
       return false;
     }
 
-    // For example, you can validate the phone number format using regular expressions
+    // Validate phone number format using regular expression
     const phoneRegex = /^\+254\s\d{9}$/;
     if (!phoneRegex.test(userData.phoneNumber)) {
       toast.error('Invalid Phone Number format. It should be like +254 790099220.');
@@ -74,19 +84,6 @@ const SubmitVerification = () => {
     // Validate ID Number format (8 digits)
     if (!validator.isNumeric(userData.idNumber) || userData.idNumber.length !== 8) {
       toast.error('Invalid ID Number format. It should be 8 digits.');
-      return false;
-    }
-
-    // Check if both national ID and KRA Certificate files are selected
-    if (!userData.nationalId || !userData.kraCert) {
-      toast.error('Both National ID and KRA Certificate files are required.');
-      return false;
-    }
-
-    // Validate file types (allow only image and PDF)
-    const validFileTypes = ['image/jpeg', 'image/png', 'application/pdf'];
-    if (!validFileTypes.includes(userData.nationalId.type) || !validFileTypes.includes(userData.kraCert.type)) {
-      toast.error('Invalid file type. Please upload an image (JPEG or PNG) or a PDF file.');
       return false;
     }
 

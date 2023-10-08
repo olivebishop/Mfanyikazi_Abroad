@@ -1,6 +1,6 @@
 import React from "react";
 import HeroSection from "../components/HeroSection";
-import PricingSection from "../components/PricingSection";
+//import PricingSection from "../components/PricingSection";
 import NewsletterSection from "../components/NewsletterSection";
 import PartnerSection from "../components/PartnerSection";
 import StatisticsSection from "../components/StatisticsSection";
@@ -13,10 +13,10 @@ const HomePage = () => {
     <div>
       <HeroSection />
       
-      <PricingSection />
+      
 
       <DownloadApp />
-      
+     
       <PartnerSection />
       
       <StatisticsSection />

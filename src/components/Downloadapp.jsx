@@ -7,7 +7,7 @@ const DownloadApp = () => {
   const apkFileUrl = 'https://drive.google.com/uc?export=download&id=1aS6Cdo6nF2ExGA7YzfaBQQQa9L4dqgWI';
 
   return (
-    <section className="bg-gray-100 py-10 mt-16">
+    <section className="bg-gray-100 py-10 mt-16 m-0">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-center items-center">
           <div className="md:w-1/2 md:pr-8 mb-6">

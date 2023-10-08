@@ -25,22 +25,26 @@ function LoginForm(props) {
 
       // Store the token and userRole in localStorage
       localStorage.setItem("authToken", token);
-      localStorage.setItem("userRole", userRole);
+      localStorage.setItem("userRole", response.data.role);
 
       console.log(`The status is: ${response.status}`);
+      console.log(response);
       toast.success("Login successful");
 
+      setTimeout(()=> {
+
+        if (response.data.role === "Employer") {
+          navigate("/employer-dashboard");
+        } else if (response.data.role === "Employee") {
+          navigate("/employee-dashboard");
+        } else if (userRole === "Agency") {
+          navigate("/agency-dashboard");
+        } else {
+          // Default fallback route (handle admin if needed)
+          navigate("/dashboard");
+        }
+      },1000)
       // Logic to redirect users to their respective dashboards based on userRole
-      if (userRole === "employer") {
-        navigate("/employer-dashboard");
-      } else if (userRole === "employee") {
-        navigate("/employee-dashboard");
-      } else if (userRole === "agency") {
-        navigate("/agency-dashboard");
-      } else {
-        // Default fallback route (handle admin if needed)
-        navigate("/dashboard");
-      }
     } catch (error) {
       console.error(error);
       toast.error("Your account is not verified. Please contact support.");

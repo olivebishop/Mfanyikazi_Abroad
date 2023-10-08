@@ -18,9 +18,8 @@ import LoginPage from "./pages/LoginPage";
 import CountryPage from "./pages/CountryPage";
 import ForgotPass from "./components/ForgotPass.jsx";
 import ResetPass from "./components/ResetPass.jsx";
-import AgencyDashboard from "./pages/dashboard/AgencyDashboard.jsx";
-import EmployeeDashboard from "./pages/dashboard/EmployeeDashboard.jsx";
-import EmployerDashboard from "./pages/dashboard/EmployerDashboard.jsx";
+//import EmployeeDashboard from "./pages/dashboard/EmployeeDashboard.jsx";
+//import EmployerDashboard from "./pages/dashboard/EmployerDashboard.jsx";
 import UpgradeModal from "./components/UpgradeModal.jsx"
 import AccountType from "./components/AccountType.jsx"
 import EmployerSignup from "./components/register/EmployerSignup.jsx"
@@ -32,6 +31,9 @@ import SubmitVerification from "./components/verification/SubmitVerification";
 import PendingVerification from "./components/verification/PendingVerification";
 import AgencyVerification from  "./components/verification/AgencyVerification";
 import EmployerVerification from "./components/verification/EmployerVerification"
+import AgencyDashboard from '../src/pages/dashboard/Protected-routes/agency/AgencyDashboard'
+import EmployeeDashboard from '../src/pages/dashboard/Protected-routes/employee/EmployeeDashboard'
+import EmployerDashboard from '../src/pages/dashboard/Protected-routes/employer/EmployerDashboard'
 
 
 function App() {
@@ -86,22 +88,22 @@ function App() {
               <Route path="/agency-verification" element={<AgencyVerification/>} />
               <Route path="/employer-verification" element={<EmployerVerification/>} />
 
+                <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+              <Route path="/employer-dashboard" element={<EmployerDashboard />} />
 
+              <Route path="/agency-dashboard" element={<AgencyDashboard />} />
 
 
               {/* Role-based access control */}
               {userRole === 'admin' && (
                 <Route path="/dashboard" element={<Dashboard />} />
               )}
-              {userRole === 'agency' && (
-                <Route path="/agency-dashboard" element={<AgencyDashboard />} />
+              {/* {userRole === 'agency' && (
               )}
               {userRole === 'employer' && (
-                <Route path="/employer-dashboard" element={<EmployerDashboard />} />
-              )}
-              {userRole === 'employee' && (
-                <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
-              )}
+              )} */}
+              {/* {userRole === 'employee' && (
+              )} */}
               
               <Route path="*" element={<NotFound />} />
             </Routes>

@@ -11,10 +11,10 @@ const NewsletterSection = () => {
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
       const response = await axios.post(
-        "http://localhost:9000/api/v1/subscribe",
+        "http://localhost:9000/api/v1/subscribeToNewsletter",
         values
       );
-  
+
       if (response.status === 200) {
         toast.success("You have subscribed to our newsletter!", {
           position: toast.POSITION.BOTTOM_CENTER,
@@ -27,6 +27,7 @@ const NewsletterSection = () => {
         toast.error("Email is already subscribed. Please use a different email.", {
           position: toast.POSITION.BOTTOM_CENTER,
         });
+        setIsAlreadySubscribed(true); // Set the state to true
       } else {
         toast.error("Subscription failed. Please try again later.", {
           position: toast.POSITION.BOTTOM_CENTER,
@@ -36,7 +37,6 @@ const NewsletterSection = () => {
       setSubmitting(false);
     }
   };
-  
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()

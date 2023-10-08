@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaUsers, FaGlobe, FaBook, FaBriefcase } from "react-icons/fa";
 import CountUp from "react-countup";
-import  '../../../css/content.css'
+import  '../../../../pages/content.css'
 
 const Content = () => {
   const [usersCount, setUsersCount] = useState(0);

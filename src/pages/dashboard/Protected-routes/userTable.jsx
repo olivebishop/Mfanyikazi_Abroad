@@ -4,11 +4,12 @@ import axios from 'axios';
 import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 
 // Function to send a verification email
-const sendVerificationEmail = async (userId, userRole) => {
+const sendVerificationEmail = async (userId, userRole, userEmail) => {
   try {
     const response = await axios.post('http://localhost:9000/api/v1/sendVerificationEmail', {
       userId,
       userRole,
+      email: userEmail,
     });
 
     // Handle the response (e.g., display a success message)
