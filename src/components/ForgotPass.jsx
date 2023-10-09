@@ -1,23 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import forgot from "../assets/forgot.svg";
+import axios from "axios"; // Import Axios for making HTTP requests
 
 const ForgetPass = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Add your logic for form submission here
+  const [email, setEmail] = useState("");
 
-    // Show a success toast
-    toast.success("Password reset email sent!", {
-      position: "bottom-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post("http://localhost:9000/api/v1/resetPassword", { email });
+
+      if (response.status === 200) {
+        toast.success("Password reset email sent!", {
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } else {
+        toast.error("Failed to send password reset email.");
+      }
+    } catch (error) {
+      toast.error("Failed to send password reset email.");
+    }
   };
 
   return (
@@ -30,10 +41,7 @@ const ForgetPass = () => {
             </h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-4 ">
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-bold  mb-2"
-                >
+                <label htmlFor="email" className="block text-sm font-bold  mb-2">
                   Email
                 </label>
                 <input
@@ -42,6 +50,8 @@ const ForgetPass = () => {
                   className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-black"
                   placeholder="Enter your email"
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="flex justify-between">

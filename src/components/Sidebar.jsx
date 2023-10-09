@@ -8,6 +8,7 @@ import {
   FaWrench,
 } from "react-icons/fa";
 import '.././components/css/Sidebar.css'
+import payment from '.././components/Payment'
 
 const Sidebar = ({ onSelectComponent }) => {
   const [showDashboard, setShowDashboard] = useState(true);
@@ -17,6 +18,8 @@ const Sidebar = ({ onSelectComponent }) => {
   const [showJobsMenu, setShowJobsMenu] = useState(false);
   const [showReportsMenu, setShowReportsMenu] = useState(false);
   const [showSettingsMenu, setShowSettingsMenu] = useState(false);
+  const [showPaymentStep, setShowPaymentStep] = useState(false);
+  const [paymentCompleted, setPaymentCompleted] = useState(false); 
 
   const toggleDashboard = () => {
     setShowDashboard(true);
@@ -87,6 +90,10 @@ const Sidebar = ({ onSelectComponent }) => {
     setShowJobsMenu(false);
     setShowReportsMenu(false);
     setShowSettingsMenu((prevShowSettingsMenu) => !prevShowSettingsMenu);
+  };
+  const handlePaymentSuccess = () => {
+    setPaymentCompleted(true); // Update payment status to true on success
+    setShowPaymentStep(false); // Close the payment step
   };
 
   return (

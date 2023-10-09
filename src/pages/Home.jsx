@@ -12,15 +12,9 @@ const HomePage = () => {
   return (
     <div>
       <HeroSection />
-      
-      
-
       <DownloadApp />
-     
       <PartnerSection />
-      
       <StatisticsSection />
-
       <NewsletterSection />
       <ChatBox/>
       <Footer />

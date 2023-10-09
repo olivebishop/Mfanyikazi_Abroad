@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTable, usePagination, useSortBy } from 'react-table';
 import axios from 'axios';
 import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
+import TableSearch from './TableSearch';
 
 // Function to send a verification email
 const sendVerificationEmail = async (userId, userRole, userEmail) => {
@@ -24,13 +25,34 @@ const UserTable = () => {
   const [users, setUsers] = useState([]);
   const [verificationMessage, setVerificationMessage] = useState('');
   const [userRoles, setUserRoles] = useState({});
+  const [filteredUsers, setFilteredUsers] = useState([]);
 
   useEffect(() => {
     // Fetch users from your API endpoint
     axios.get('http://localhost:9000/api/v1/users').then((response) => {
-      setUsers(response.data);
+      const userData = response.data;
+      setUsers(userData);
+      setFilteredUsers(userData);
     });
   }, []);
+
+  // Add a callback function to handle search
+  const handleSearch = (query) => {
+    // Implement your filtering logic here
+    const filtered = users.filter((user) => {
+      // Perform filtering based on the search query and user properties
+      return (
+        user.username.toLowerCase().includes(query.toLowerCase()) ||
+        user.email.toLowerCase().includes(query.toLowerCase())
+      );
+    });
+
+    // Update the filteredUsers state
+    setFilteredUsers(filtered);
+  };
+
+  // Use the filteredUsers state for data
+  const data = React.useMemo(() => filteredUsers, [filteredUsers]);
 
   const columns = React.useMemo(
     () => [
@@ -113,8 +135,6 @@ const UserTable = () => {
     }
   };
 
-  const data = React.useMemo(() => users, [users]);
-
   const {
     getTableProps,
     getTableBodyProps,
@@ -139,6 +159,7 @@ const UserTable = () => {
 
   return (
     <div className="overflow-x-auto">
+      <TableSearch data={users} onSearch={handleSearch} />
       <table {...getTableProps()} className="min-w-full table-auto">
         <thead>
           {headerGroups.map((headerGroup) => (
