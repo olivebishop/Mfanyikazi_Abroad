@@ -3,6 +3,8 @@ import { useTable, usePagination, useSortBy } from 'react-table';
 import axios from 'axios';
 import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import TableSearch from './TableSearch';
+import '../../content.css'
+
 
 // Function to send a verification email
 const sendVerificationEmail = async (userId, userRole, userEmail) => {
@@ -74,7 +76,7 @@ const UserTable = () => {
         Cell: ({ row }) => {
           const userRole = userRoles[row.original.id] || '';
           return (
-            <div className="flex items-center justify-center space-x-2">
+            <div className="flex items-center justify-center space-x-2 ml-auto ">
               <select
                 value={userRole}
                 onChange={(e) => handleRoleChange(e, row.original.id)}

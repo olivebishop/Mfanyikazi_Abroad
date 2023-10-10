@@ -121,7 +121,7 @@ const formattedJobData = {
   }, [jobData, userData]);
 
   return (
-    <div className="mt-2 bg-white p-4 rounded-lg mb-30 ">
+    <div className="mt-2 bg-white p-4 rounded-lg mb-30 content-container">
       <div className="flex flex-wrap justify-between">
         <div className="w-full md:w-1/2 mb-4 md:mb-0 pr-4">
         <div className="bg-white p-4 rounded-lg" style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)" }}>

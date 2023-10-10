@@ -22,7 +22,7 @@ const Contact = () => {
         // Successful form submission, you can handle the response as needed
         console.log('Your Message was sent successfully');
         // Clear the form fields or show a success message
-        toast.success('Form submitted successfully', {
+        toast.success('Your Message has been sent successfully', {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,

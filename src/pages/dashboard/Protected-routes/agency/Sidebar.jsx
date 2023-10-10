@@ -131,36 +131,6 @@ const Sidebar = ({ onSelectComponent }) => {
           <li>
             <button
               className={`text-white hover:bg-green-500 hover:text-white block rounded-md p-2 ${
-                showCountriesMenu ? "bg-green-500 text-black" : ""
-              }`}
-              onClick={toggleCountriesMenu}
-            >
-              <FaGlobe className="mr-2" />Manage Countries
-            </button>
-            {showCountriesMenu && (
-              <ul className="ml-4">
-                <li>
-                  <button
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-1"
-                    onClick={() => onSelectComponent("addCountry")}
-                  >
-                    Add Country
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-1"
-                    onClick={() => onSelectComponent("viewCountry")}
-                  >
-                    View Countries
-                  </button>
-                </li>
-              </ul>
-            )}
-          </li>
-          <li>
-            <button
-              className={`text-white hover:bg-green-500 hover:text-white block rounded-md p-2 ${
                 showCoursesMenu ? "bg-green-500 text-black" : ""
               }`}
               onClick={toggleCoursesMenu}

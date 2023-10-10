@@ -7,7 +7,8 @@ import {
   FaFile,
   FaWrench,
 } from "react-icons/fa";
-import '.././components/css/Sidebar.css'
+import '../components/css/Sidebar.css';
+
 import payment from '.././components/Payment'
 
 const Sidebar = ({ onSelectComponent }) => {
@@ -20,6 +21,10 @@ const Sidebar = ({ onSelectComponent }) => {
   const [showSettingsMenu, setShowSettingsMenu] = useState(false);
   const [showPaymentStep, setShowPaymentStep] = useState(false);
   const [paymentCompleted, setPaymentCompleted] = useState(false); 
+  const [isSidebarVisible, setSidebarVisible] = useState(false);
+  const toggleSidebar = () => {
+    setSidebarVisible(!isSidebarVisible);
+  };
 
   const toggleDashboard = () => {
     setShowDashboard(true);
@@ -97,11 +102,13 @@ const Sidebar = ({ onSelectComponent }) => {
   };
 
   return (
-    <aside className="bg-black text-white w-1/6 sm:w-64 ">
-      <div className="p-4 flex items-center justify-between mt-16">
+    <aside className="bg-black text-white w-1/6 sm:w-64 fixed top-0 h-screen overflow-y-auto">
+
+
+        <div className="p-4 flex items-center justify-between sm:mt-16">
         <span className="text-slate-500 text-lg mb-2">Mfanyikazi-Abroad</span>
       </div>
-      <nav className="p-4">
+      <nav className="p-4 ">
         <ul className="space-y-2">
           <li>
             <button
@@ -130,36 +137,6 @@ const Sidebar = ({ onSelectComponent }) => {
                     onClick={() => onSelectComponent("viewUser")}
                   >
                     View Users
-                  </button>
-                </li>
-              </ul>
-            )}
-          </li>
-          <li>
-            <button
-              className={`text-white hover:bg-green-500 hover:text-white block rounded-md p-2 ${
-                showCountriesMenu ? "bg-green-500 text-black" : ""
-              }`}
-              onClick={toggleCountriesMenu}
-            >
-              <FaGlobe className="mr-2" />Manage Countries
-            </button>
-            {showCountriesMenu && (
-              <ul className="ml-4">
-                <li>
-                  <button
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-1"
-                    onClick={() => onSelectComponent("addCountry")}
-                  >
-                    Add Country
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-1"
-                    onClick={() => onSelectComponent("viewCountry")}
-                  >
-                    View Countries
                   </button>
                 </li>
               </ul>
@@ -264,6 +241,12 @@ const Sidebar = ({ onSelectComponent }) => {
           </li>
         </ul>
       </nav>
+      <button
+        className="bg-black text-white sm:hidden md:hidden p-2 absolute top-0 right-0 m-4"
+        onClick={toggleSidebar}
+      >
+        {isSidebarVisible ? <FaWrench /> : <FaGlobe />}
+      </button>
     </aside>
   );
 };
