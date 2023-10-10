@@ -15,6 +15,7 @@ const JobTable = ({ onEditClick, onDeleteClick }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [filteredJobs, setFilteredJobs] = useState([]);
   const [searchQuery, setSearchQuery] = useState(''); 
+  const [isApplyFormOpen, setIsApplyFormOpen] = useState(false);
 
   useEffect(() => {
     // Fetch jobs from your API endpoint
@@ -121,12 +122,51 @@ const data = React.useMemo(() => (searchQuery ? filteredJobs : jobs), [
     setIsApplying(true);
     setVerificationMessage(`Applying for job with ID ${jobId}`);
 
-    // Simulate an apply process (you can replace this with your actual logic)
-    setTimeout(() => {
-      setIsApplying(false);
-      setVerificationMessage(`Applied for job with ID ${jobId}`);
-    }, 2000);
-  };
+    // Send the application data to the API endpoint
+  axios
+  .post('http://localhost:9000/api/v1/applications', {
+    job_id: jobId,
+    name: applicationData.name,
+    email: applicationData.email,
+    phone: applicationData.phone,
+  })
+  .then((response) => {
+    setIsApplying(false);
+    setVerificationMessage(`Applied for job with ID ${jobId}`);
+
+    // Clear the application form
+    setApplicationData({
+      name: '',
+      email: '',
+      phone: '',
+    });
+
+    // Handle success (e.g., show a success message)
+    toast.success('Application submitted successfully!', {
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+  })
+  .catch((error) => {
+    setIsApplying(false);
+    setVerificationMessage(`Failed to apply for job with ID ${jobId}`);
+
+    // Handle error (e.g., show an error message)
+    toast.error('Failed to submit application. Please try again later.', {
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+  });
+};
+    
 
   const handleEdit = (job) => {
     setEditedJob(job);
@@ -136,9 +176,10 @@ const data = React.useMemo(() => (searchQuery ? filteredJobs : jobs), [
   const handleDelete = (jobId) => {
     onDeleteClick(jobId);
   };
-
+// apply for job 
   const handleViewDetails = (job) => {
     setSelectedJob(job);
+    setIsApplyFormOpen(true);
   };
 
   const closeEditModal = () => {
@@ -153,6 +194,21 @@ const data = React.useMemo(() => (searchQuery ? filteredJobs : jobs), [
       [name]: value,
     });
   };
+//applying fo job form 
+  const [applicationData, setApplicationData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+  });
+  
+  const handleApplicationInputChange = (e) => {
+    const { name, value } = e.target;
+    setApplicationData({
+      ...applicationData,
+      [name]: value,
+    });
+  };
+  
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -296,14 +352,14 @@ const data = React.useMemo(() => (searchQuery ? filteredJobs : jobs), [
               <p><span className="font-bold">Job Requirements:</span> {selectedJob.job_requirements}</p>
 
               {/* Apply Button (conditionally rendered) */}
-              {!isApplying && (
-                <button
-                  onClick={() => handleApply(selectedJob.id)}
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full m-1"
-                >
-                  Apply
-                </button>
-              )}
+             
+               <button
+               onClick={() => setIsApplyFormOpen(true)}
+               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full m-1"
+             >
+               Apply
+             </button>
+          
 
               {/* Close Button */}
               <div className="mt-6">
@@ -318,6 +374,79 @@ const data = React.useMemo(() => (searchQuery ? filteredJobs : jobs), [
           </div>
         </div>
       )}
+         {/* Apply form*/}
+  {isApplyFormOpen && (
+  <div className="fixed inset-0 flex items-center justify-center z-50">
+    <div className="modal-overlay absolute w-full h-full bg-gray-800 opacity-50"></div>
+    <div className="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+      <div className="modal-content py-4 text-left px-6">
+        <h3 className="text-1xl font-bold mb-4">Apply for Job</h3>
+        <form>
+          <div className="mb-4">
+            <label htmlFor="appName" className="block text-gray-600 mb-2">
+              Name
+            </label>
+            <input
+              type="text"
+              id="appName"
+              name="name"
+              value={applicationData.name}
+              onChange={handleApplicationInputChange}
+              className="w-full p-2 border rounded-md focus:outline-none focus:border-green-500"
+              placeholder="Enter your name"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="appEmail" className="block text-gray-600 mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              id="appEmail"
+              name="email"
+              value={applicationData.email}
+              onChange={handleApplicationInputChange}
+              className="w-full p-2 border rounded-md focus:outline-none focus:border-green-500"
+              placeholder="Enter your email"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="appPhone" className="block text-gray-600 mb-2">
+              Phone
+            </label>
+            <input
+              type="tel"
+              id="appPhone"
+              name="phone"
+              value={applicationData.phone}
+              onChange={handleApplicationInputChange}
+              className="w-full p-2 border rounded-md focus:outline-none focus:border-green-500"
+              placeholder="Enter your phone number"
+            />
+          </div>
+          <button
+            onClick={() => handleApply(selectedJob.id)}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full m-1"
+          >
+            Apply
+          </button>
+          <button
+            onClick={() => setIsApplyFormOpen(false)}
+            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full m-1"
+          >
+            Cancel
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+)}
+
+
+
+
+
+
 
       {/* Edit Job Modal */}
       {isEditModalOpen && (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaUsers, FaGlobe, FaBriefcase, FaExchangeAlt} from "react-icons/fa";
+import { FaUsers, FaPaperPlane , FaBriefcase, FaExchangeAlt} from "react-icons/fa";
 import CountUp from "react-countup";
 import  '../.././pages/content.css'
 
@@ -28,7 +28,7 @@ const Content = () => {
       setJobCount(jobData.length);
       
       // Fetch countries data
-      const countriesResponse = await fetch("http://localhost:9000/api/v1/countries");
+      const countriesResponse = await fetch("http://localhost:9000/api/v1/applications");
       const countriesData = await countriesResponse.json();
       setCountriesCount(countriesData.length);
 
@@ -59,9 +59,9 @@ const Content = () => {
         {/* Countries Widget */}
         <div className="bg-white rounded-lg shadow-lg p-4 border-t-2 border-green-500"> 
           <div className="flex items-center justify-center mb-1"> 
-            <FaGlobe className="text-3xl text-green-500" /> 
+            <FaPaperPlane  className="text-3xl text-green-500" /> 
           </div>
-          <h3 className="text-base font-bold mb-1">Countries</h3> 
+          <h3 className="text-base font-bold mb-1"> Applications</h3> 
           <CountUp start={0} end={countriesCount} duration={2} separator="," prefix="" suffix="" className="text-lg font-bold text-center" /> 
           <div className="w-1/4 h-1 bg-green-500 mx-auto mt-1"></div> 
           
