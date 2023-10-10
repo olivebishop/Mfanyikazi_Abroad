@@ -62,7 +62,7 @@ const ForgetPass = () => {
                   Submit
                 </button>
                 <a
-                  href="/signup"
+                  href="/account-type"
                   className="text-gray-500 hover:text-gray-700 transition-colors duration-300"
                 >
                   Cancel

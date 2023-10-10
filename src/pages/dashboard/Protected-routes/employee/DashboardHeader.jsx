@@ -3,11 +3,10 @@ import {
   BiLogOutCircle,
   BiMessageSquare,
   BiBell,
-  BiSearch,
   BiHelpCircle,
 } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-import profile from "../../../../assets/profile.png";
+import profile from "../assets/profile.png";
 
 const DashboardHeader = () => {
   const navigate = useNavigate();
@@ -15,6 +14,8 @@ const DashboardHeader = () => {
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [username, setUsername] = useState("");
   const [profileImage, setProfileImage] = useState(null);
+  const [notifications, setNotifications] = useState([]);
+  const [showNotifications, setShowNotifications] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
@@ -26,6 +27,7 @@ const DashboardHeader = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
+    localStorage.removeItem('paymentCompleted');
     navigate("/login");
   };
 
@@ -68,7 +70,27 @@ const DashboardHeader = () => {
     console.log("Profile Image:", profileImage);
     setShowProfileModal(false);
   };
+  const handleNotificationClick = () => {
+    // Mark notifications as read when the notification dropdown is opened
+    const updatedNotifications = notifications.map((notification) => ({
+      ...notification,
+      read: true,
+    }));
+    setNotifications(updatedNotifications);
+    setShowNotifications(!showNotifications); // Toggle the dropdown visibility
+  };
+  const handleAddNotification = () => {
+    // Simulate adding a new notification for a job added
+    const newNotification = {
+      id: Date.now(),
+      message: "New job added!",
+      timestamp: new Date().toLocaleString(),
+      read: false,
+    };
+  
 
+    setNotifications([newNotification, ...notifications]);
+  };
   // Get the authToken state
   const authToken = localStorage.getItem("authToken");
 
@@ -81,22 +103,21 @@ const DashboardHeader = () => {
           onClick={handleProfileClick}
         >
           <img src={profile} alt="Profile" className="w-8 h-8 rounded-full" />
-          <h1 className="text-lg font-semibold">Hello Admin!</h1>
+          <h6 className="text-lg font-semibold">Employee Dashboard</h6>
         </div>
 
         {/* Search, Message, Notification, and Logout Icons */}
-        <div className="flex items-center space-x-4">
-          <BiSearch className="h-6 w-6" />
-          <input
-            type="text"
-            placeholder="Search..."
-            className="px-2 py-1 text-gray-800 bg-white rounded-md focus:outline-none"
-          />
+        <div className="flex space-x-4">
           <BiMessageSquare
             className="h-6 w-6 cursor-pointer"
             onClick={handleSendMessage}
           />
-          <BiBell className="h-6 w-6" />
+        <div className="relative" onClick={handleNotificationClick}>
+            <BiBell className="h-6 w-6 cursor-pointer" />
+            {notifications.some((notification) => !notification.read) && (
+              <div className="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full"></div>
+            )}
+          </div>
           <BiHelpCircle
             className="h-6 w-6 cursor-pointer"
             onClick={handleHelpIconClick}

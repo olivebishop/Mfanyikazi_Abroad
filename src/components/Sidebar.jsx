@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {
   FaUsers,
   FaGlobe,
-  FaBook,
+  FaExchangeAlt,
   FaBriefcase,
   FaFile,
   FaWrench,
@@ -97,7 +97,7 @@ const Sidebar = ({ onSelectComponent }) => {
   };
 
   return (
-    <aside className="bg-black text-white w-1/6 sm:w-64 fixed sidebar">
+    <aside className="bg-black text-white w-1/6 sm:w-64 ">
       <div className="p-4 flex items-center justify-between mt-16">
         <span className="text-slate-500 text-lg mb-2">Mfanyikazi-Abroad</span>
       </div>
@@ -172,7 +172,7 @@ const Sidebar = ({ onSelectComponent }) => {
               }`}
               onClick={toggleCoursesMenu}
             >
-              <FaBook className="mr-2" />Manage Courses
+              <FaExchangeAlt className="mr-2" />Manage Transactions
             </button>
             {showCoursesMenu && (
               <ul className="ml-4">
@@ -181,15 +181,7 @@ const Sidebar = ({ onSelectComponent }) => {
                     className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-2"
                     onClick={() => onSelectComponent("addCourses")}
                   >
-                    Add Course
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-2"
-                    onClick={() => onSelectComponent("viewCourses")}
-                  >
-                    View Courses
+                    Transactions
                   </button>
                 </li>
               </ul>
@@ -244,14 +236,6 @@ const Sidebar = ({ onSelectComponent }) => {
                     View Reports
                   </button>
                 </li>
-                <li>
-                  <button
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-2"
-                    onClick={() => onSelectComponent("viewDocs")}
-                  >
-                    View Docs
-                  </button>
-                </li>
               </ul>
             )}
           </li>
@@ -271,25 +255,10 @@ const Sidebar = ({ onSelectComponent }) => {
                     className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-2"
                     onClick={() => onSelectComponent("checkLogs")}
                   >
-                    Check Logs
+                    View Settings
                   </button>
                 </li>
-                <li>
-                  <button
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-2"
-                    onClick={() => onSelectComponent("profile")}
-                  >
-                    Profile
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-2"
-                    onClick={() => onSelectComponent("changePassword")}
-                  >
-                    Change Password
-                  </button>
-                </li>
+                
               </ul>
             )}
           </li>

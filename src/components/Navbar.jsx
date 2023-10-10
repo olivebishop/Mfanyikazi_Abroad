@@ -54,7 +54,7 @@ function Navbar() {
         </div>
       </div>
       <div className={`md:hidden ${isOpen ? 'block' : 'hidden'}`}>
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 ">
           <Link to="/" className="block text-white hover:text-green-500 navlink">Home</Link>
           <Link to="/about" className="block text-white hover:text-green-500 navlink">About</Link>
           <Link to="/services" className="block text-white hover:text-green-500 navlink">Services</Link>

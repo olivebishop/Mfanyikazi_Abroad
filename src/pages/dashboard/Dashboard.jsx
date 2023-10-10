@@ -11,10 +11,10 @@ import ViewCourses from "../../pages/dashboard/Protected-routes/manage-courses/V
 import AddJob from "../../pages/dashboard/Protected-routes/manage-jobs/AddJobs";
 import ViewJob from "../../pages/dashboard/Protected-routes/manage-jobs/ViewJobs";
 import ViewReports from "../../pages/dashboard/Protected-routes/manage-reports/ViewReports";
-import Profile from "./Protected-routes/manage-settings/Profile";
 import CheckLogs from "./Protected-routes/manage-settings/CheckLogs";
 import AdminChart from '../../pages/dashboard/AdminChart';
 import ViewDocs from "./Protected-routes/manage-reports/ViewDocs";
+
 
 const Dashboard = ({ loggedIn }) => {
   const [selectedComponent, setSelectedComponent] = useState("content");
@@ -37,7 +37,6 @@ const Dashboard = ({ loggedIn }) => {
           {selectedComponent === "viewJob" && <ViewJob />}
           {selectedComponent === "viewReports" && <ViewReports />}
           {selectedComponent === "viewDocs" && <viewDocs />}
-          {selectedComponent === "profile" && <Profile/>}
           {selectedComponent === "checkLogs" && <CheckLogs/>}
 
           {/* AdminChart will only render when selectedComponent is "content" */}

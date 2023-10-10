@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaUsers, FaGlobe, FaBook, FaBriefcase } from "react-icons/fa";
+import { FaUsers, FaGlobe, FaBriefcase, FaExchangeAlt} from "react-icons/fa";
 import CountUp from "react-countup";
 import  '../.././pages/content.css'
 
@@ -33,7 +33,7 @@ const Content = () => {
       setCountriesCount(countriesData.length);
 
       // Fetch courses data
-      const coursesResponse = await fetch("http://localhost:9000/api/v1/courses");
+      const coursesResponse = await fetch("http://localhost:9000/api/v1/transactions");
       const coursesData = await coursesResponse.json();
       setCoursesCount(coursesData.length);
       
@@ -43,7 +43,7 @@ const Content = () => {
   };
 
   return (
-    <section className="p-4 md:p-8 lg:p-10 xl:p-12 mt-16 content-container">
+    <section className="p-4 md:p-8 lg:p-10 xl:p-12 mt-16 ">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"> 
         {/* Users Widget */}
         <div className="bg-white rounded-lg shadow-lg p-4 border-t-2 border-blue-500"> 
@@ -70,9 +70,9 @@ const Content = () => {
         {/* Courses Widget */}
         <div className="bg-white rounded-lg shadow-lg p-4 border-t-2 border-purple-500">  
           <div className="flex items-center justify-center mb-1"> 
-            <FaBook className="text-3xl text-purple-500" /> 
+            <FaExchangeAlt className="text-3xl text-purple-500" /> 
           </div>
-          <h3 className="text-base font-bold mb-1">Courses</h3> 
+          <h3 className="text-base font-bold mb-1">Transactions</h3> 
           <CountUp start={0} end={coursesCount} duration={2} separator="," prefix="" suffix="" className="text-lg font-bold text-center" /> 
           <div className="w-1/4 h-1 bg-purple-500 mx-auto mt-1"></div>
         </div>

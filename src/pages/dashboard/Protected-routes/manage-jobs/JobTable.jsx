@@ -4,6 +4,7 @@ import { useTable, useSortBy, usePagination } from 'react-table';
 import { FaEdit, FaTrash, FaInfoCircle, FaCheck } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import TableSearch from './TableSearch';
 
 const JobTable = ({ onEditClick, onDeleteClick }) => {
   const [jobs, setJobs] = useState([]);
@@ -12,6 +13,8 @@ const JobTable = ({ onEditClick, onDeleteClick }) => {
   const [isApplying, setIsApplying] = useState(false);
   const [editedJob, setEditedJob] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [filteredJobs, setFilteredJobs] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(''); 
 
   useEffect(() => {
     // Fetch jobs from your API endpoint
@@ -19,6 +22,29 @@ const JobTable = ({ onEditClick, onDeleteClick }) => {
       setJobs(response.data);
     });
   }, []);
+ // Add a callback function to handle search
+ const handleSearch = (query) => {
+  setSearchQuery(query);
+  const filtered = jobs.filter((job) => {
+    // Perform filtering based on the search query and job properties
+    return (
+      job.title.toLowerCase().includes(query.toLowerCase()) ||
+      job.type.toLowerCase().includes(query.toLowerCase()) ||
+      job.salary_range.toLowerCase().includes(query.toLowerCase())
+    );
+  });
+
+  // Update the filteredJobs state
+  setFilteredJobs(filtered);
+};
+
+//Using the filteredJobs state for data, or all jobs if the search query is empty
+const data = React.useMemo(() => (searchQuery ? filteredJobs : jobs), [
+  searchQuery,
+  filteredJobs,
+  jobs,
+]);
+
 
   const columns = React.useMemo(
     () => [
@@ -68,8 +94,6 @@ const JobTable = ({ onEditClick, onDeleteClick }) => {
     ],
     []
   );
-
-  const data = React.useMemo(() => jobs, [jobs]);
 
   const {
     getTableProps,
@@ -183,6 +207,7 @@ const JobTable = ({ onEditClick, onDeleteClick }) => {
 
   return (
     <div className="overflow-x-auto">
+          <TableSearch data={jobs} onSearch={handleSearch} />
       <table {...getTableProps()} className="min-w-full table-auto">
         <thead>
           {headerGroups.map((headerGroup) => (

@@ -37,7 +37,7 @@ function LoginForm(props) {
           navigate("/employer-dashboard");
         } else if (response.data.role === "Employee") {
           navigate("/employee-dashboard");
-        } else if (userRole === "Agency") {
+        } else if (response.data.role === "Agency") {
           navigate("/agency-dashboard");
         } else {
           // Default fallback route (handle admin if needed)

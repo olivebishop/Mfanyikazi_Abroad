@@ -1,12 +1,48 @@
 import React from "react";
 import { FaFacebook, FaTwitter, FaInstagram, FaWhatsapp, FaEnvelope } from "react-icons/fa";
+import axios from "axios";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Contact = () => {
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Implement your logic for handling form submission here
-    // You can access form data using e.target elements
+
+    const formData = new FormData(e.target);
+    const url = 'https://formspree.io/f/xaykzpea'; // Your Formspree endpoint
+
+    try {
+      const response = await axios.post(url, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (response.status === 200) {
+        // Successful form submission, you can handle the response as needed
+        console.log('Your Message was sent successfully');
+        // Clear the form fields or show a success message
+        toast.success('Form submitted successfully', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+      }
+    } catch (error) {
+      // Handle any errors that occurred during the form submission
+      console.error('Error submitting the form:', error);
+      toast.error('Error submitting the form', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
   };
+
 
   return (
     <div className="container mx-auto mt-16 flex flex-col md:flex-row">
@@ -89,6 +125,7 @@ const Contact = () => {
           ></iframe>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

@@ -81,7 +81,7 @@ const DashboardHeader = () => {
           onClick={handleProfileClick}
         >
           <img src={profile} alt="Profile" className="w-8 h-8 rounded-full" />
-          <h1 className="text-lg font-semibold">Hello Admin!</h1>
+          <h6 className="text-lg font-semibold">Employer Dashboard</h6>
         </div>
 
         {/* Search, Message, Notification, and Logout Icons */}

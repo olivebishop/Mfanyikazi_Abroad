@@ -51,8 +51,7 @@ const ViewJobs = () => {
   };
 
   return (
-    <div className="container mx-auto py-8">
-      <h6 className="text-3xl font-bold mb-4 mt-5">View Jobs</h6>
+    <div className="container mx-auto py-8 mt-8">
       <JobTable
       data={jobs}
         onEditClick={handleEditClick} 

@@ -4,7 +4,6 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import Dashboard from "./pages/dashboard/Dashboard.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Preloader from "./components/Preloader.jsx";
@@ -34,6 +33,7 @@ import EmployerVerification from "./components/verification/EmployerVerification
 import AgencyDashboard from '../src/pages/dashboard/Protected-routes/agency/AgencyDashboard'
 import EmployeeDashboard from '../src/pages/dashboard/Protected-routes/employee/EmployeeDashboard'
 import EmployerDashboard from '../src/pages/dashboard/Protected-routes/employer/EmployerDashboard'
+
 
 
 function App() {
@@ -88,10 +88,9 @@ function App() {
               <Route path="/agency-verification" element={<AgencyVerification/>} />
               <Route path="/employer-verification" element={<EmployerVerification/>} />
 
-                <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+              <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
               <Route path="/employer-dashboard" element={<EmployerDashboard />} />
-
-              <Route path="/agency-dashboard" element={<AgencyDashboard />} />
+              <Route path="/agency-dashboard" element={<AgencyDashboard/>} />
 
 
               {/* Role-based access control */}

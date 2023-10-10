@@ -24,8 +24,7 @@ const ViewUsers = () => {
   };
 
   return (
-    <div className="container mx-auto py-8">
-      <h6 className="text-xl font-semibold mb-4 mt-5">View Users</h6>
+    <div className="container mx-auto py-8 mt-8">
       <UserTable data={users} />
     </div>
   );

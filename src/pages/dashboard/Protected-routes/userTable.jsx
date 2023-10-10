@@ -184,7 +184,7 @@ const UserTable = () => {
             return (
               <tr
                 {...row.getRowProps()}
-                className={rowIndex % 2 === 0 ? 'bg-white' : 'bg-slate-400'}
+                className={rowIndex % 2 === 0 ? 'bg-white' : 'bg-slate-200'}
               >
                 {row.cells.map((cell) => {
                   return (
