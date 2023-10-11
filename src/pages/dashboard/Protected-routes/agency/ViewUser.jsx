@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import UserTable from './userTable'; // Make sure the import path is correct
+import '../../../../pages/content.css'
 
 const ViewUsers = () => {
   const [users, setUsers] = useState([]);
@@ -24,8 +25,7 @@ const ViewUsers = () => {
   };
 
   return (
-    <div className="container mx-auto py-8">
-      <h6 className="text-3xl font-bold mb-4 mt-5">View Users</h6>
+    <div className="container mx-auto py-8 mt-8">
       <UserTable data={users} />
     </div>
   );

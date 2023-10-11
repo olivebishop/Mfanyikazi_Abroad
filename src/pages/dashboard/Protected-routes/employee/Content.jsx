@@ -17,12 +17,12 @@ const Content = () => {
   const fetchDataFromDatabase = async () => {
     try {
       // Fetch users data
-      const usersResponse = await fetch("http://localhost:9000/api/v1/users");
+      const usersResponse = await fetch("http://localhost:9000/api/v1/applications");
       const usersData = await usersResponse.json();
       setUsersCount(usersData.length);
 
       // Fetch countries data
-      const countriesResponse = await fetch("http://localhost:9000/api/v1/countries");
+      const countriesResponse = await fetch("http://localhost:9000/api/v1/courses");
       const countriesData = await countriesResponse.json();
       setCountriesCount(countriesData.length);
 
@@ -42,14 +42,14 @@ const Content = () => {
   };
 
   return (
-    <section className="p-4 md:p-8 lg:p-10 xl:p-12 mt-16">
+    <section className="p-4 md:p-8 lg:p-10 xl:p-12 mt-16 content-container">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"> 
         {/* Users Widget */}
         <div className="bg-white rounded-lg shadow-lg p-4 border-t-2 border-blue-500"> 
           <div className="flex items-center justify-center mb-1"> 
             <FaUsers className="text-3xl text-blue-500" /> 
           </div>
-          <h3 className="text-base font-bold mb-1">Users</h3> 
+          <h3 className="text-base font-bold mb-1">Applications</h3> 
           <CountUp start={0} end={usersCount} duration={2} separator="," prefix="" suffix="" className="text-lg font-bold text-center" /> 
           <div className="w-1/4 h-1 bg-blue-500 mx-auto mt-1"></div> 
        

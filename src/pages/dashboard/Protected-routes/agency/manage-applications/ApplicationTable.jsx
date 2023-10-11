@@ -1,68 +1,79 @@
+// ApplicantTable.js
 import React, { useState, useEffect } from 'react';
 import { useTable, usePagination, useSortBy } from 'react-table';
 import axios from 'axios';
 import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
+import TableSearch from './TableSearch';
+import '../../../../../pages/content.css'
+import { Document, Page, pdfjs } from 'react-pdf'
 
-// Function to send a verification email
-const sendVerificationEmail = async (userId, userRole) => {
-  try {
-    const response = await axios.post('http://localhost:9000/api/v1/sendVerificationEmail', {
-      userId,
-      userRole,
-    });
-
-    // Handle the response (e.g., display a success message)
-    console.log('Verification email sent:', response.data.message);
-  } catch (error) {
-    // Handle errors (e.g., display an error message)
-    console.error('Error sending verification email:', error);
-  }
-};
-
-const UserTable = () => {
-  const [users, setUsers] = useState([]);
+const ApplicantTable = () => {
+  const [applicants, setApplicants] = useState([]);
   const [verificationMessage, setVerificationMessage] = useState('');
-  const [userRoles, setUserRoles] = useState({});
+  const [filteredApplicants, setFilteredApplicants] = useState([]);
+  //setting up pdf
+  const [showPdfReport, setShowPdfReport] = useState(false);
+  const generatePdfReport = () => {
+    const pdfData = (
+      <Document>
+        <Page>
+          {/* Add the content of your PDF report here */}
+          <h1>Applicant Report</h1>
+          {applicants.map((applicant) => (
+            <div key={applicant.id}>
+              <p>Name: {applicant.name}</p>
+              <p>Email: {applicant.email}</p>
+              <p>Phone: {applicant.phone}</p>
+            </div>
+          ))}
+        </Page>
+      </Document>
+    );
+  
+    // Open the PDF report in a new window/tab
+    setShowPdfReport(pdfData);
+  };
+  
+
 
   useEffect(() => {
-    // Fetch users from your API endpoint
-    axios.get('http://localhost:9000/api/v1/users').then((response) => {
-      setUsers(response.data);
-    });
+    fetchDataFromDatabase();
   }, []);
+
+  const fetchDataFromDatabase = async () => {
+    try {
+      const response = await axios.get('http://localhost:9000/api/v1/applications');
+      if (!response.data || response.data.length === 0) {
+        console.log('No data received from the API.');
+      } else {
+        setApplicants(response.data);
+        setFilteredApplicants(response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   const columns = React.useMemo(
     () => [
       {
-        Header: 'User ID',
-        accessor: 'id',
-      },
-      {
-        Header: 'Username',
-        accessor: 'username',
+        Header: 'Applicant Name',
+        accessor: 'name',
       },
       {
         Header: 'Email',
         accessor: 'email',
       },
       {
+        Header: 'Phone',
+        accessor: 'phone',
+      },
+      {
         Header: 'Actions',
         accessor: 'actions',
         Cell: ({ row }) => {
-          const userRole = userRoles[row.original.id] || '';
           return (
             <div className="flex items-center justify-center space-x-2">
-              <select
-                value={userRole}
-                onChange={(e) => handleRoleChange(e, row.original.id)}
-                className="py-1 px-2 rounded bg-slate-300 text-slate-900"
-              >
-                <option value="">Assign Role</option>
-                <option value="admin">Admin</option>
-                <option value="agency">Agency</option>
-                <option value="employer">Employer</option>
-                <option value="employee">Employee</option>
-              </select>
               <button
                 onClick={() => handleVerify(row.original)}
                 className="bg-slate-900 hover:bg-gray-600 text-white px-2 py-1 rounded"
@@ -74,45 +85,28 @@ const UserTable = () => {
         },
       },
     ],
-    [userRoles]
+    []
   );
 
-  const handleRoleChange = (e, userId) => {
-    const { value } = e.target;
-    setUserRoles((prevRoles) => ({
-      ...prevRoles,
-      [userId]: value,
-    }));
-  };
-
-  const handleVerify = (user) => {
-    console.log('Verifying user:', user);
-    const role = userRoles[user.id];
-    if (role) {
-      // Send a request to your backend API to assign the role and send the verification message
-      axios
-        .post('http://localhost:9000/api/v1/assignRoleAndNotify', {
-          userId: user.id,
-          role,
-        })
-        .then((response) => {
-          // Handle the response from the API (e.g., display a success message)
-          setVerificationMessage(`User ${user.username} verified as ${role}.`);
-
-          // Call the function to send the verification email
-          sendVerificationEmail(user.id, role);
-        })
-        .catch((error) => {
-          // Handle any errors from the API (e.g., display an error message)
-          console.error('Error assigning role and notifying user:', error);
-          setVerificationMessage('Error assigning role. Please try again later.');
-        });
-    } else {
-      console.log('Please select a role to assign before verifying.');
+  const handleVerify = async (applicant) => {
+    try {
+      const response = await axios.post('http://localhost:9000/api/v1/sendHiredEmail', {
+        user: applicant,
+      });
+  
+      if (response.status === 200) {
+        setVerificationMessage(response.data); // Assuming your backend sends a success message.
+      } else {
+        setVerificationMessage('Email sending failed'); // Handle error response from your backend.
+      }
+    } catch (error) {
+      console.error('Error verifying applicant:', error);
+      setVerificationMessage('Email sending failed'); // Handle network error.
     }
   };
+  
 
-  const data = React.useMemo(() => users, [users]);
+  const data = React.useMemo(() => filteredApplicants, [filteredApplicants]);
 
   const {
     getTableProps,
@@ -136,8 +130,17 @@ const UserTable = () => {
     usePagination
   );
 
+  const handleSearch = (query) => {
+    const filteredData = applicants.filter((applicant) => {
+      return applicant.name.toLowerCase().includes(query.toLowerCase());
+    });
+
+    setFilteredApplicants(filteredData);
+  };
+
   return (
-    <div className="overflow-x-auto">
+    <div className="applicant-table-container">
+      <TableSearch data={applicants} onSearch={handleSearch} />
       <table {...getTableProps()} className="min-w-full table-auto">
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -162,7 +165,7 @@ const UserTable = () => {
             return (
               <tr
                 {...row.getRowProps()}
-                className={rowIndex % 2 === 0 ? 'bg-white' : 'bg-slate-400'}
+                className={rowIndex % 2 === 0 ? 'bg-white' : 'bg-slate-200'}
               >
                 {row.cells.map((cell) => {
                   return (
@@ -185,7 +188,7 @@ const UserTable = () => {
           disabled={!canPreviousPage}
           className={`px-4 py-2 rounded-md ${
             canPreviousPage
-              ? 'bg-slate-900 hover:bg-slate-600'
+              ? 'bg-slate-900 hover-bg-slate-600'
               : 'bg-gray-700 cursor-not-allowed'
           } text-white`}
         >
@@ -202,7 +205,7 @@ const UserTable = () => {
           disabled={!canNextPage}
           className={`px-4 py-2 rounded-md ${
             canNextPage
-              ? 'bg-slate-900 hover:bg-slate-600'
+              ? 'bg-slate-900 hover-bg-slate-600'
               : 'bg-gray-700 cursor-not-allowed'
           } text-white`}
         >
@@ -216,4 +219,4 @@ const UserTable = () => {
   );
 };
 
-export default UserTable;
+export default ApplicantTable;

@@ -3,14 +3,14 @@ import DashboardHeader from "./DashboardHeader";
 import Sidebar from "./Sidebar";
 import Content from "./Content";
 import DashboardFooter from "./DashboardFooter";
-//import ViewUser from "./ViewUser";
-//import AddJob from "../../pages/dashboard/Protected-routes/manage-jobs/AddJobs";
-//import ViewJob from "../../pages/dashboard/Protected-routes/manage-jobs/ViewJobs";
-//import ViewReports from "../../pages/dashboard/Protected-routes/manage-reports/ViewReports";
-//import Profile from "./Protected-routes/manage-settings/Profile";
-//import CheckLogs from "./Protected-routes/manage-settings/CheckLogs";
-//import AdminChart from '../../pages/dashboard/AdminChart';
-//import ViewDocs from "./Protected-routes/manage-reports/ViewDocs";
+import ViewUser from "./ViewUser";
+import AddJobs from "./manage-jobs/AddJobs";
+import ViewJobs from "./manage-jobs/ViewJobs";
+import ViewReports from "./manage-reports/ViewReports";
+import CheckLogs from "./manage-settings/CheckLogs";
+import AgencyChart from "./AgencyChart";
+import ViewApplications from "./manage-applications/ViewApplications";
+
 
 const Dashboard = ({ loggedIn }) => {
   const [selectedComponent, setSelectedComponent] = useState("content");
@@ -23,22 +23,17 @@ const Dashboard = ({ loggedIn }) => {
         
         <div className="flex-1">
           {/* Conditional rendering for selected component */}
-           {/*selectedComponent === "content" && <Content />}
+           {selectedComponent === "content" && <Content />}
           {selectedComponent === "viewUser" && <ViewUser />}
-          {selectedComponent === "addCountry" && <AddCountry />} 
-          {selectedComponent === "viewCountry" && <ViewCountry />} 
-          {selectedComponent === "addCourses" && <AddCourses />} 
-          {selectedComponent === "viewCourses" && <ViewCourses />} 
-          {selectedComponent === "addJob" && <AddJob />}
-          {selectedComponent === "viewJob" && <ViewJob />}
+          {selectedComponent === "addJob" && <AddJobs />}
+          {selectedComponent === "viewJob" && <ViewJobs />}
           {selectedComponent === "viewReports" && <ViewReports />}
-          {selectedComponent === "viewDocs" && <viewDocs />}
-          {selectedComponent === "profile" && <Profile/>}
-          {selectedComponent === "checkLogs" && <CheckLogs/>*/}
+          {selectedComponent === "checkLogs" && <CheckLogs/>}
+          {selectedComponent === "viewApplications" && <ViewApplications/>}
 
 
           {/* AdminChart will only render when selectedComponent is "content" */}
-          {/*selectedComponent === "content" && <AdminChart />*/}
+          {selectedComponent === "content" && <AgencyChart />}
 
           <DashboardFooter />
         </div>

@@ -3,7 +3,6 @@ import {
   BiLogOutCircle,
   BiMessageSquare,
   BiBell,
-  BiSearch,
   BiHelpCircle,
 } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +14,9 @@ const DashboardHeader = () => {
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [username, setUsername] = useState("");
   const [profileImage, setProfileImage] = useState(null);
+  const [notifications, setNotifications] = useState([]);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [newUsername, setNewUsername] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
@@ -26,6 +28,7 @@ const DashboardHeader = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
+    localStorage.removeItem('paymentCompleted');
     navigate("/login");
   };
 
@@ -62,13 +65,53 @@ const DashboardHeader = () => {
     setProfileImage(URL.createObjectURL(file));
   };
 
-  const handleProfileUpdate = () => {
-    // Perform profile update logic
-    console.log("Username:", username);
-    console.log("Profile Image:", profileImage);
-    setShowProfileModal(false);
-  };
+  const handleProfileUpdate = async () => {
+    try {
+      // Create a FormData object to send the data as a multipart form
+      const formData = new FormData();
+      formData.append("newUsername", newUsername);
+      formData.append("profileImage", profileImage); 
+       // Send the data to the server using a POST request
+       const userId = 1
+    const response = await fetch("http://localhost:9000/api/v1/users/${userId}/update-profile", {
+      method: "POST",
+      body: formData,
+    });
 
+    if (response.ok) {
+      // Handle success, e.g., show a success message
+      console.log("Profile updated successfully");
+      setShowProfileModal(false);
+    } else {
+      // Handle error, e.g., display an error message
+      console.error("Profile update failed");
+    }
+  } catch (error) {
+    console.error("Error updating profile:", error);
+  }
+};
+
+  const handleNotificationClick = () => {
+    // Mark notifications as read when the notification dropdown is opened
+    const updatedNotifications = notifications.map((notification) => ({
+      ...notification,
+      read: true,
+    }));
+    setNotifications(updatedNotifications);
+    setShowNotifications(!showNotifications); // Toggle the dropdown visibility
+  };
+  const handleAddNotification = () => {
+    // Simulate adding a new notification for a job added
+    const newNotification = {
+      id: Date.now(),
+      message: "New job added!",
+      timestamp: new Date().toLocaleString(),
+      read: false,
+    };
+  
+
+    setNotifications([newNotification, ...notifications]);
+  };
   // Get the authToken state
   const authToken = localStorage.getItem("authToken");
 
@@ -85,18 +128,17 @@ const DashboardHeader = () => {
         </div>
 
         {/* Search, Message, Notification, and Logout Icons */}
-        <div className="flex items-center space-x-4">
-          <BiSearch className="h-6 w-6" />
-          <input
-            type="text"
-            placeholder="Search..."
-            className="px-2 py-1 text-gray-800 bg-white rounded-md focus:outline-none"
-          />
+        <div className="flex space-x-4">
           <BiMessageSquare
             className="h-6 w-6 cursor-pointer"
             onClick={handleSendMessage}
           />
-          <BiBell className="h-6 w-6" />
+        <div className="relative" onClick={handleNotificationClick}>
+            <BiBell className="h-6 w-6 cursor-pointer" />
+            {notifications.some((notification) => !notification.read) && (
+              <div className="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full"></div>
+            )}
+          </div>
           <BiHelpCircle
             className="h-6 w-6 cursor-pointer"
             onClick={handleHelpIconClick}

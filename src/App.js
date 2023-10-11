@@ -33,7 +33,7 @@ import EmployerVerification from "./components/verification/EmployerVerification
 import AgencyDashboard from '../src/pages/dashboard/Protected-routes/agency/AgencyDashboard'
 import EmployeeDashboard from '../src/pages/dashboard/Protected-routes/employee/EmployeeDashboard'
 import EmployerDashboard from '../src/pages/dashboard/Protected-routes/employer/EmployerDashboard'
-
+import { Navigate } from "react-router-dom";
 
 
 function App() {
@@ -55,6 +55,15 @@ function App() {
       setLoading(false);
     }, 3000);
   }, []);
+
+  // Define a custom PrivateRoute component for route guarding
+  function PrivateRoute({ element, roles }) {
+    if (roles.includes(userRole)) {
+      return element;
+    } else {
+      return <Navigate to="/login" />;
+    }
+  }
 
   return (
     <div className="App">
@@ -88,9 +97,7 @@ function App() {
               <Route path="/agency-verification" element={<AgencyVerification/>} />
               <Route path="/employer-verification" element={<EmployerVerification/>} />
 
-              <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
-              <Route path="/employer-dashboard" element={<EmployerDashboard />} />
-              <Route path="/agency-dashboard" element={<AgencyDashboard/>} />
+              
 
 
               {/* Role-based access control */}
@@ -103,6 +110,9 @@ function App() {
               )} */}
               {/* {userRole === 'employee' && (
               )} */}
+              <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+              <Route path="/employer-dashboard" element={<EmployerDashboard />} />
+              <Route path="/agency-dashboard" element={<AgencyDashboard/>} />
               
               <Route path="*" element={<NotFound />} />
             </Routes>

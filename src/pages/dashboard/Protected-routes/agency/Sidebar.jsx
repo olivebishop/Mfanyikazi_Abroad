@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import {
   FaUsers,
   FaGlobe,
-  FaBook,
+  FaExchangeAlt,
   FaBriefcase,
   FaFile,
   FaWrench,
+  FaPaperPlane,
 } from "react-icons/fa";
-import '../../../../components/css/Sidebar.css'
+import '../../../../components/css/Sidebar.css';
+
+import payment from '../../../../components/Payment'
 
 const Sidebar = ({ onSelectComponent }) => {
   const [showDashboard, setShowDashboard] = useState(true);
@@ -17,6 +20,12 @@ const Sidebar = ({ onSelectComponent }) => {
   const [showJobsMenu, setShowJobsMenu] = useState(false);
   const [showReportsMenu, setShowReportsMenu] = useState(false);
   const [showSettingsMenu, setShowSettingsMenu] = useState(false);
+  const [showPaymentStep, setShowPaymentStep] = useState(false);
+  const [paymentCompleted, setPaymentCompleted] = useState(false); 
+  const [isSidebarVisible, setSidebarVisible] = useState(false);
+  const toggleSidebar = () => {
+    setSidebarVisible(!isSidebarVisible);
+  };
 
   const toggleDashboard = () => {
     setShowDashboard(true);
@@ -88,13 +97,19 @@ const Sidebar = ({ onSelectComponent }) => {
     setShowReportsMenu(false);
     setShowSettingsMenu((prevShowSettingsMenu) => !prevShowSettingsMenu);
   };
+  const handlePaymentSuccess = () => {
+    setPaymentCompleted(true); // Update payment status to true on success
+    setShowPaymentStep(false); // Close the payment step
+  };
 
   return (
-    <aside className="bg-black text-white w-1/6 sm:w-64 fixed sidebar">
-      <div className="p-4 flex items-center justify-between mt-16">
+    <aside className="bg-black text-white w-1/6 sm:w-64 fixed top-0 h-screen overflow-y-auto">
+
+
+        <div className="p-4 flex items-center justify-between sm:mt-16">
         <span className="text-slate-500 text-lg mb-2">Mfanyikazi-Abroad</span>
       </div>
-      <nav className="p-4">
+      <nav className="p-4 ">
         <ul className="space-y-2">
           <li>
             <button
@@ -131,28 +146,20 @@ const Sidebar = ({ onSelectComponent }) => {
           <li>
             <button
               className={`text-white hover:bg-green-500 hover:text-white block rounded-md p-2 ${
-                showCoursesMenu ? "bg-green-500 text-black" : ""
+                showUsersMenu ? "bg-green-500 text-black" : ""
               }`}
-              onClick={toggleCoursesMenu}
+              onClick={toggleUsersMenu}
             >
-              <FaBook className="mr-2" />Manage Courses
+              <FaPaperPlane className="mr-2" /> Manage Applications
             </button>
-            {showCoursesMenu && (
+            {showUsersMenu && (
               <ul className="ml-4">
                 <li>
                   <button
                     className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-2"
-                    onClick={() => onSelectComponent("addCourses")}
+                    onClick={() => onSelectComponent("viewApplications")}
                   >
-                    Add Course
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-2"
-                    onClick={() => onSelectComponent("viewCourses")}
-                  >
-                    View Courses
+                    View Applicants
                   </button>
                 </li>
               </ul>
@@ -169,14 +176,6 @@ const Sidebar = ({ onSelectComponent }) => {
             </button>
             {showJobsMenu && (
               <ul className="ml-4">
-                <li>
-                  <button
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-2"
-                    onClick={() => onSelectComponent("addJob")}
-                  >
-                    Add Job
-                  </button>
-                </li>
                 <li>
                   <button
                     className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-2"
@@ -207,14 +206,6 @@ const Sidebar = ({ onSelectComponent }) => {
                     View Reports
                   </button>
                 </li>
-                <li>
-                  <button
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-2"
-                    onClick={() => onSelectComponent("viewDocs")}
-                  >
-                    View Docs
-                  </button>
-                </li>
               </ul>
             )}
           </li>
@@ -234,30 +225,21 @@ const Sidebar = ({ onSelectComponent }) => {
                     className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-2"
                     onClick={() => onSelectComponent("checkLogs")}
                   >
-                    Check Logs
+                    View Settings
                   </button>
                 </li>
-                <li>
-                  <button
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-2"
-                    onClick={() => onSelectComponent("profile")}
-                  >
-                    Profile
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className="text-white hover:bg-green-500 hover:text-white block rounded-md p-2 mt-2"
-                    onClick={() => onSelectComponent("changePassword")}
-                  >
-                    Change Password
-                  </button>
-                </li>
+                
               </ul>
             )}
           </li>
         </ul>
       </nav>
+      <button
+        className="bg-black text-white sm:hidden md:hidden p-2 absolute top-0 right-0 m-4"
+        onClick={toggleSidebar}
+      >
+        {isSidebarVisible ? <FaWrench /> : <FaGlobe />}
+      </button>
     </aside>
   );
 };

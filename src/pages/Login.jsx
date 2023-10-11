@@ -47,7 +47,7 @@ function LoginForm(props) {
       // Logic to redirect users to their respective dashboards based on userRole
     } catch (error) {
       console.error(error);
-      toast.error("Your account is not verified. Please contact support.");
+      toast.error("Your account is not verified. check your email for details.");
     }
   };
 

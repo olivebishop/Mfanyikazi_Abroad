@@ -2,13 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useTable, usePagination, useSortBy } from 'react-table';
 import axios from 'axios';
 import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
+import TableSearch from './TableSearch';
+import '../../../../pages/content.css'
+
 
 // Function to send a verification email
-const sendVerificationEmail = async (userId, userRole) => {
+const sendVerificationEmail = async (userId, userRole, userEmail) => {
   try {
     const response = await axios.post('http://localhost:9000/api/v1/sendVerificationEmail', {
       userId,
       userRole,
+      email: userEmail,
     });
 
     // Handle the response (e.g., display a success message)
@@ -23,13 +27,34 @@ const UserTable = () => {
   const [users, setUsers] = useState([]);
   const [verificationMessage, setVerificationMessage] = useState('');
   const [userRoles, setUserRoles] = useState({});
+  const [filteredUsers, setFilteredUsers] = useState([]);
 
   useEffect(() => {
     // Fetch users from your API endpoint
     axios.get('http://localhost:9000/api/v1/users').then((response) => {
-      setUsers(response.data);
+      const userData = response.data;
+      setUsers(userData);
+      setFilteredUsers(userData);
     });
   }, []);
+
+  // Add a callback function to handle search
+  const handleSearch = (query) => {
+    // Implement your filtering logic here
+    const filtered = users.filter((user) => {
+      // Perform filtering based on the search query and user properties
+      return (
+        user.username.toLowerCase().includes(query.toLowerCase()) ||
+        user.email.toLowerCase().includes(query.toLowerCase())
+      );
+    });
+
+    // Update the filteredUsers state
+    setFilteredUsers(filtered);
+  };
+
+  // Use the filteredUsers state for data
+  const data = React.useMemo(() => filteredUsers, [filteredUsers]);
 
   const columns = React.useMemo(
     () => [
@@ -51,17 +76,14 @@ const UserTable = () => {
         Cell: ({ row }) => {
           const userRole = userRoles[row.original.id] || '';
           return (
-            <div className="flex items-center justify-center space-x-2">
+            <div className="flex items-center justify-center space-x-2 ml-auto ">
               <select
                 value={userRole}
                 onChange={(e) => handleRoleChange(e, row.original.id)}
                 className="py-1 px-2 rounded bg-slate-300 text-slate-900"
               >
                 <option value="">Assign Role</option>
-                <option value="admin">Admin</option>
-                <option value="agency">Agency</option>
                 <option value="employer">Employer</option>
-                <option value="employee">Employee</option>
               </select>
               <button
                 onClick={() => handleVerify(row.original)}
@@ -105,14 +127,12 @@ const UserTable = () => {
         .catch((error) => {
           // Handle any errors from the API (e.g., display an error message)
           console.error('Error assigning role and notifying user:', error);
-          setVerificationMessage('Error assigning role. Please try again later.');
+          setVerificationMessage('User already assigned role. Please try another user.');
         });
     } else {
       console.log('Please select a role to assign before verifying.');
     }
   };
-
-  const data = React.useMemo(() => users, [users]);
 
   const {
     getTableProps,
@@ -138,6 +158,7 @@ const UserTable = () => {
 
   return (
     <div className="overflow-x-auto">
+      <TableSearch data={users} onSearch={handleSearch} />
       <table {...getTableProps()} className="min-w-full table-auto">
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -162,7 +183,7 @@ const UserTable = () => {
             return (
               <tr
                 {...row.getRowProps()}
-                className={rowIndex % 2 === 0 ? 'bg-white' : 'bg-slate-400'}
+                className={rowIndex % 2 === 0 ? 'bg-white' : 'bg-slate-200'}
               >
                 {row.cells.map((cell) => {
                   return (

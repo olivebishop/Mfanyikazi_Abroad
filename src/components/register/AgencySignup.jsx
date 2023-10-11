@@ -16,8 +16,9 @@ const SignUpForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Input validation
     if (!agreeTerms) {
-      toast.error("Please check the box agree to our terms and conditions");
+      toast.error("Please check the box to agree to our terms and conditions");
       return;
     }
 
@@ -25,6 +26,8 @@ const SignUpForm = () => {
       toast.error("Passwords don't match");
       return;
     }
+
+    // Add more input validations here if needed
 
     try {
       const user = { username, email, password };
@@ -35,7 +38,7 @@ const SignUpForm = () => {
       console.log("Sign-up form submitted");
       console.log(response.data);
       toast.success("Sign-up successful");
-      navigate("/agency-verification");
+      navigate("/login");
     } catch (error) {
       console.error(error);
       toast.error("Sign-up failed");

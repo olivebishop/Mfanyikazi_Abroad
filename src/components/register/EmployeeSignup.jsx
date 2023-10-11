@@ -35,7 +35,7 @@ const SignUpForm = () => {
       console.log("Sign-up form submitted");
       console.log(response.data);
       toast.success("Sign-up successful");
-      navigate("/submit-verification");
+      navigate("/login");
     } catch (error) {
       console.error(error);
       toast.error("Sign-up failed");
