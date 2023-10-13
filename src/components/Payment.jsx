@@ -3,9 +3,9 @@ import { usePaystackPayment } from 'react-paystack';
 
 const config = {
   reference: (new Date()).getTime().toString(),
-  email: 'olivehendrilgen1@gmail.com',
+  email: 'olivehend***************',
   amount: 1000,
-  publicKey: 'pk_test_a7961d4fbeaf8f2da658a5cd92df761415594574',
+  publicKey: 'pk_test_a7961d4fbea******************',
   currency: 'KES',
   channels: ['card', 'mobile_money'],
 };

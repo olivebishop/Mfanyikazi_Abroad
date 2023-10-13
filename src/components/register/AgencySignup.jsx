@@ -4,6 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import signup from "../../assets/signup.svg";
+import ReCAPTCHA from "react-google-recaptcha";
+
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -12,6 +14,12 @@ const SignUpForm = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [agreeTerms, setAgreeTerms] = useState(false);
+  const [recaptchaValue, setRecaptchaValue] = useState('');
+  
+  const handleRecaptchaChange = (value) => {
+    setRecaptchaValue(value);
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,6 +35,10 @@ const SignUpForm = () => {
       return;
     }
 
+    if (!recaptchaValue) {
+      toast.error('Please complete the reCAPTCHA verification.');
+      return;
+    }
     // Add more input validations here if needed
 
     try {
@@ -61,6 +73,12 @@ const SignUpForm = () => {
           <h3 className="text-4xl font-bold mt-4 text-left">Sign Up </h3>
             <h6 className="text-xl font-semi mt-4 text-left">Agency</h6>
             <form onSubmit={handleSubmit} className="space-y-4 mt-8">
+            <div className="mb-4">
+                <ReCAPTCHA
+                  sitekey="6Ld-5pgoAAAAANfT_V_I-JKrYocKowF4mfprkxGZ"
+                  onChange={handleRecaptchaChange}
+                />
+              </div>
               <div>
                 <label htmlFor="username" className="block mb-2 font-medium">
                   Username
