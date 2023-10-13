@@ -73,12 +73,6 @@ const SignUpForm = () => {
           <h3 className="text-4xl font-bold mt-4 text-left">Sign Up </h3>
             <h6 className="text-xl font-semi mt-4 text-left">Agency</h6>
             <form onSubmit={handleSubmit} className="space-y-4 mt-8">
-            <div className="mb-4">
-                <ReCAPTCHA
-                  sitekey="6Ld-5pgoAAAAANfT_V_I-JKrYocKowF4mfprkxGZ"
-                  onChange={handleRecaptchaChange}
-                />
-              </div>
               <div>
                 <label htmlFor="username" className="block mb-2 font-medium">
                   Username
@@ -153,6 +147,12 @@ const SignUpForm = () => {
                 Sign Up
               </button>
             </form>
+            <div className="mt-4">
+                <ReCAPTCHA
+                  sitekey="6Ld-5pgoAAAAANfT_V_I-JKrYocKowF4mfprkxGZgit "
+                  onChange={handleRecaptchaChange}
+                />
+              </div>
             <div className="flex justify-between mt-4">
               <a href="/login" className="text-green-600 no-underline">
                 Have an account? Log in
