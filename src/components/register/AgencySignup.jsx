@@ -149,7 +149,7 @@ const SignUpForm = () => {
             </form>
             <div className="mt-4">
                 <ReCAPTCHA
-                  sitekey="6LeC5pgoAAAAABbgzyRKQ8clIV7Y2v_uFxhIjMLK "
+                  sitekey="6Ldbw5goAAAAAABbkrJZKkZd1BowIGlZHYz4sfbD"
                   onChange={handleRecaptchaChange}
                 />
               </div>
